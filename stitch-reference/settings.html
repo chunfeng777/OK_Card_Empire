@@ -1,0 +1,329 @@
+<!DOCTYPE html><html class="light" lang="zh-CN" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>个人设置 | EMPIRE ELITE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-surface-variant": "#4d4732",
+                "inverse-on-surface": "#f0f1f1",
+                "surface-container-high": "#e8e8e8",
+                "on-tertiary-container": "#006a70",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary-container": "#636262",
+                "secondary-fixed-dim": "#c8c6c5",
+                "primary": "#705d00",
+                "error": "#ba1a1a",
+                "border-light": "#EEEEEE",
+                "secondary": "#5f5e5e",
+                "on-primary-container": "#705e00",
+                "text-muted": "#666666",
+                "surface-dim": "#dadada",
+                "surface-subtle": "#F9F9F9",
+                "secondary-container": "#e2dfde",
+                "error-container": "#ffdad6",
+                "on-tertiary-fixed": "#002022",
+                "tertiary-fixed-dim": "#00dbe8",
+                "tertiary-container": "#00f1ff",
+                "amber-glow": "#FFB800",
+                "tertiary-fixed": "#79f5ff",
+                "on-secondary-fixed": "#1c1b1b",
+                "secondary-fixed": "#e5e2e1",
+                "on-secondary": "#ffffff",
+                "surface-tint": "#705d00",
+                "on-tertiary": "#ffffff",
+                "background": "#f9f9f9",
+                "outline": "#7e775f",
+                "surface-bright": "#f9f9f9",
+                "inverse-primary": "#e9c400",
+                "on-surface": "#1a1c1c",
+                "on-primary": "#ffffff",
+                "outline-variant": "#d0c6ab",
+                "on-primary-fixed": "#221b00",
+                "on-tertiary-fixed-variant": "#004f54",
+                "on-secondary-fixed-variant": "#474746",
+                "primary-fixed-dim": "#e9c400",
+                "primary-fixed": "#ffe16d",
+                "tertiary": "#00696f",
+                "on-error": "#ffffff",
+                "surface-container-highest": "#e2e2e2",
+                "on-background": "#1a1c1c",
+                "on-primary-fixed-variant": "#544600",
+                "on-error-container": "#93000a",
+                "primary-container": "#ffd700",
+                "surface-variant": "#e2e2e2",
+                "surface-container": "#eeeeee",
+                "inverse-surface": "#2f3131",
+                "surface": "#f9f9f9",
+                "surface-container-low": "#f3f3f4",
+                "success-green": "#00C853"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "container-max": "1280px",
+                "margin-mobile": "16px",
+                "section-gap": "80px",
+                "component-padding": "16px",
+                "gutter": "24px"
+            },
+            "fontFamily": {
+                "body-md": ["Inter"],
+                "headline-lg": ["Plus Jakarta Sans"],
+                "body-lg": ["Inter"],
+                "display-lg": ["Plus Jakarta Sans"],
+                "label-sm": ["JetBrains Mono"],
+                "headline-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .active-link {
+            border-bottom: 2px solid #ffd700;
+        }
+        .custom-shadow {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+        .custom-shadow-hover:hover {
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+            transform: translateY(-4px);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface selection:bg-primary-fixed">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full h-[72px] bg-white border-b border-border-light z-50">
+  <div class="flex justify-between items-center h-full px-gutter max-w-container-max mx-auto">
+    <!-- Logo Section -->
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-[#705d00] rounded-lg flex items-center justify-center">
+        <span class="material-symbols-outlined text-white">style</span>
+      </div>
+      <span class="font-display-lg text-[24px] font-extrabold text-[#705d00]">OK Card Empire</span>
+    </div>
+
+    <!-- Centered Navigation Links -->
+    <nav class="hidden md:flex gap-12 font-semibold text-[16px] text-on-surface items-center">
+      <a class="text-[#705d00] font-bold active-link" href="#" style="border-bottom-color: rgb(112, 93, 0);">首页</a>
+      <a class="hover:text-primary transition-colors duration-200" href="#">盲盒专区</a>
+      <a class="hover:text-primary transition-colors duration-200" href="#">常见问题</a>
+      <a class="hover:text-primary transition-colors duration-200" href="#">联系我们</a>
+    </nav>
+
+    <!-- Right Side Actions -->
+    <div class="flex items-center gap-6">
+      <div class="flex items-center gap-2 text-on-surface">
+        <span class="material-symbols-outlined text-[20px]">database</span>
+        <span class="font-body-md">OK Coin: 0</span>
+        <button class="w-6 h-6 bg-[#FFB800] rounded-full flex items-center justify-center hover:opacity-90 ml-1">
+          <span class="material-symbols-outlined text-[16px] font-bold text-on-primary-fixed">add</span>
+        </button>
+      </div>
+      <div class="h-8 w-[1px] bg-border-light"></div>
+      <div class="flex items-center gap-3 cursor-pointer group">
+        <img class="w-10 h-10 rounded-full border border-border-light object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDez14T4aPDAeY6J0LkFxWN1OGUKKGiEM6kgmUL6LsD_s0akjbNRtqTRqF8_AmOWLkNy-LZgANSjszmDjLbZQeBav4_xCql8HvyQaLoVc9n__Cht9jf8fr_0maBiRnfb4z8Lfk33i9KZrCQfrtBHQQwKGYFEUXMHuSgzYzNR1A8MXFv5H3W00rJMkajun6wKvAmUGCMmiDEj8m29qB-CibqAq0YS7DAESP6eLsfY2BkU4QzpRTOFNCR" alt="User">
+        <span class="font-body-md text-on-surface group-hover:text-primary transition-colors">个人中心</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="max-w-container-max mx-auto pt-[72px] flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="w-80 h-[calc(100vh-72px)] sticky top-[72px] bg-surface flex flex-col py-8 px-6 gap-8 overflow-y-auto transition-all duration-200"><div class="bg-white rounded-xl custom-shadow p-6 flex flex-col gap-8 min-h-[600px]"><div class="flex items-center gap-3 mb-4"><img class="w-12 h-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4fU0Ah6p5hLu2p4uqigMVa9R2MOcFWaWi26FZ36gwiTSz0q0L_IoCzNlsZTB_IQkfKa6Qku8fhq61f_AnCQY5NbsFN3jgxL3CHWBMjFLOE1GkJB79A1VeKP2hEVm5yJQdHnbkd66RxivPDSRsEZDzeDj7---U0w5wGteK1dBckhagB6IyDa4dsqpf88h3BcyGRvmT7ZnRxVnZacFU7V1X1HMfhyPfm_qUXWxhMWHIFn6pIktnF4GZ" alt="Ace Collector"><div class="flex flex-col"><p class="font-bold text-on-surface text-[16px] leading-tight">Ace Collector</p><p class="text-[12px] text-on-surface-variant/60 font-medium">UID: 8829184</p></div></div><nav class="flex flex-col gap-4"><a class="flex items-center gap-4 px-4 py-2 text-on-surface hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-[22px]">person</span><span class="font-body-md">个人主页</span></a><a class="flex items-center gap-4 px-4 py-2 text-on-surface hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-[22px]">inventory_2</span><span class="font-body-md">盲盒订单</span></a><a class="flex items-center gap-4 px-4 py-3 bg-[#ffd700] text-on-surface font-bold rounded-xl" href="#"><span class="material-symbols-outlined text-[22px]">local_shipping</span><span class="font-body-md">物流订单</span></a><a class="flex items-center gap-4 px-4 py-2 text-on-surface hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-[22px]">account_balance_wallet</span><span class="font-body-md">支付方式</span></a><a class="flex items-center gap-4 px-4 py-2 text-on-surface hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-[22px]">location_on</span><span class="font-body-md">地址簿</span></a><a class="flex items-center gap-4 px-4 py-2 text-on-surface hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-[22px]">settings</span><span class="font-body-md">个人设置</span></a></nav></div></aside>
+<!-- Main Content Area -->
+<main class="flex-grow p-10 bg-surface-bright overflow-y-auto">
+<div class="max-w-4xl mx-auto">
+<header class="mb-10">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">个人中心设置</h1>
+<p class="text-on-surface-variant mt-2">管理您的个人资料、账户安全与偏好设置。</p>
+</header>
+<div class="grid gap-8">
+<!-- Profile Settings Card -->
+<section class="bg-white rounded-xl border border-border-light custom-shadow p-8">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">person</span>
+                                个人信息
+                            </h2>
+<button class="text-primary font-bold hover:underline">编辑</button>
+</div>
+<div class="flex flex-col md:flex-row gap-10 items-start">
+<div class="relative group cursor-pointer">
+<img class="w-32 h-32 rounded-full border-4 border-surface-container object-cover group-hover:opacity-80 transition-opacity" data-alt="A clean and modern UI portrait of a woman collector, Alex Rivers. The image is circular with a high-definition, minimalist professional style. The lighting is bright and airy, reflecting a premium corporate identity in the luxury collectible space." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfU-7H7LNr8RvEMnmpVs9DN1ZiWDaEjF6PiqlBD2ihv1yJ-uqmKxooSPTi4NSVqPx8hl8fEEGU06CMsHdj4TSyTeZYNyKNkRJHdWt_3XBmwyji9oZJYzhlijDf0ICZth82cfg3Gi6DkIlbfKnEw9QiXDUC3utQYvOPe7GF30RMn_aQOaoi02YIlsQ5yJboZLKWsPvSz_eVaakwoWp6f7CSDyzgD7ttvzCLphqRZRnm040-OuBkFBqt">
+<div class="absolute bottom-0 right-0 bg-primary p-2 rounded-full text-white">
+<span class="material-symbols-outlined text-[18px]">photo_camera</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 flex-grow">
+<div class="space-y-1">
+<label class="font-label-sm text-on-surface-variant">昵称</label>
+<p class="font-body-lg font-semibold text-on-surface">Ace Collector</p>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-on-surface-variant">UID</label>
+<p class="font-body-lg font-semibold text-on-surface font-label-sm">8829184</p>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-on-surface-variant">出生日期</label>
+<p class="font-body-lg font-semibold text-on-surface">1992-05-24</p>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-on-surface-variant">等级</label>
+<div class="flex items-center gap-2">
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed text-[12px] font-bold rounded-full">ELITE L3</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Account Security Card -->
+<section class="bg-white rounded-xl border border-border-light custom-shadow p-8">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">security</span>
+                            账户安全
+                        </h2>
+<div class="space-y-0">
+<div class="flex items-center justify-between py-6 border-b border-border-light">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant">mail</span>
+<div>
+<p class="font-body-md font-semibold text-on-surface">邮箱绑定</p>
+<p class="text-on-surface-variant">alex.r***@gmail.com</p>
+</div>
+</div>
+<button class="px-4 py-2 border border-border-light rounded-lg hover:border-primary transition-colors text-on-surface-variant font-medium">更换</button>
+</div>
+<div class="flex items-center justify-between py-6 border-b border-border-light">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant">smartphone</span>
+<div>
+<p class="font-body-md font-semibold text-on-surface">手机绑定</p>
+<p class="text-on-surface-variant">+1 213****888</p>
+</div>
+</div>
+<button class="px-4 py-2 border border-border-light rounded-lg hover:border-primary transition-colors text-on-surface-variant font-medium">更换</button>
+</div>
+<div class="flex items-center justify-between py-6">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant">lock</span>
+<div>
+<p class="font-body-md font-semibold text-on-surface">登录密码</p>
+<p class="text-on-surface-variant">定期修改密码可提高安全性</p>
+</div>
+</div>
+<button class="px-6 py-2 bg-primary-container text-on-primary-container font-bold rounded-lg hover:opacity-90 transition-opacity">修改密码</button>
+</div>
+</div>
+</section>
+<!-- Privacy & Preferences Card -->
+<section class="bg-white rounded-xl border border-border-light custom-shadow p-8">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">tune</span>
+                            偏好与隐私
+                        </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+<div class="flex items-center justify-between">
+<div>
+<p class="font-body-md font-semibold text-on-surface">新消息推送</p>
+<p class="text-label-sm text-on-surface-variant">在手机端接收订单更新通知</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-surface-container rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border-light after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<p class="font-body-md font-semibold text-on-surface">语言偏好</p>
+<p class="text-label-sm text-on-surface-variant">当前语言</p>
+</div>
+<select class="bg-white border border-border-light rounded-lg px-4 py-2 focus:ring-primary focus:border-primary">
+<option selected="">简体中文</option>
+<option>English</option>
+<option>日本語</option>
+</select>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<p class="font-body-md font-semibold text-on-surface">隐私账户</p>
+<p class="text-label-sm text-on-surface-variant">隐藏我的收藏集对他人可见</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-surface-container rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border-light after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<p class="font-body-md font-semibold text-on-surface">自动登录</p>
+<p class="text-label-sm text-on-surface-variant">在此浏览器保持登录状态</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-surface-container rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border-light after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full bg-white border-t border-border-light">
+
+</footer>
+<script>
+        // Simple toggle interactions
+        document.querySelectorAll('input[type="checkbox"]').forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                console.log('Setting updated');
+                // Could add a toast notification here
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

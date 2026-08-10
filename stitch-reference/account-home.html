@@ -1,0 +1,400 @@
+<!DOCTYPE html><html lang="zh-CN" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>OK Card Empire - 个人中心</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#f0f1f1",
+                        "surface-dim": "#dadada",
+                        "tertiary-container": "#00f1ff",
+                        "surface-tint": "#705d00",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#004f54",
+                        "surface-container-high": "#e8e8e8",
+                        "primary-fixed-dim": "#e9c400",
+                        "border-light": "#EEEEEE",
+                        "on-secondary": "#ffffff",
+                        "primary": "#705d00",
+                        "inverse-primary": "#e9c400",
+                        "surface-variant": "#e2e2e2",
+                        "outline-variant": "#d0c6ab",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-tertiary-fixed": "#002022",
+                        "surface-bright": "#f9f9f9",
+                        "inverse-surface": "#2f3131",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container-low": "#f3f3f4",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "success-green": "#00C853",
+                        "surface-subtle": "#F9F9F9",
+                        "secondary-fixed": "#e5e2e1",
+                        "text-muted": "#666666",
+                        "on-surface": "#1a1c1c",
+                        "on-primary-fixed": "#221b00",
+                        "on-tertiary-container": "#006a70",
+                        "tertiary": "#00696f",
+                        "error": "#ba1a1a",
+                        "background": "#f9f9f9",
+                        "primary-fixed": "#ffe16d",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-container": "#eeeeee",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#e2dfde",
+                        "primary-container": "#ffd700",
+                        "tertiary-fixed-dim": "#00dbe8",
+                        "outline": "#7e775f",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-primary-fixed-variant": "#544600",
+                        "on-background": "#1a1c1c",
+                        "secondary": "#5f5e5e",
+                        "on-primary-container": "#705e00",
+                        "surface": "#f9f9f9",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#636262",
+                        "on-surface-variant": "#4d4732",
+                        "tertiary-fixed": "#79f5ff",
+                        "amber-glow": "#FFB800"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "component-padding": "16px",
+                        "gutter": "24px",
+                        "section-gap": "80px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full h-[72px] bg-white border-b border-border-light z-50">
+<div class="flex justify-between items-center h-full max-w-container-max mx-auto px-gutter">
+<div class="flex items-center gap-2">
+    <div class="w-8 h-8 bg-[#705d00] rounded flex items-center justify-center">
+        <span class="material-symbols-outlined text-white text-xl">style</span>
+    </div>
+    <span class="font-headline-md text-headline-md font-bold text-[#705d00]">OK Card Empire</span>
+</div>
+<nav class="hidden md:flex items-center gap-8"><div class="relative group">
+    <a class="font-medium text-on-surface px-1" href="#">首页</a>
+    <div class="absolute -bottom-2 left-0 w-full h-0.5 bg-[#705d00]"></div>
+</div>
+<a class="font-medium text-secondary hover:text-primary transition-colors" href="#">盲盒专区</a>
+<a class="font-medium text-secondary hover:text-primary transition-colors" href="#">常见问题</a>
+<a class="font-medium text-secondary hover:text-primary transition-colors" href="#">联系我们</a></nav>
+<div class="flex items-center gap-4"><div class="flex items-center gap-6">
+    <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-secondary">database</span>
+        <span class="text-sm font-medium text-secondary">OK Coin: 0</span>
+        <button class="w-5 h-5 bg-amber-glow rounded-full flex items-center justify-center text-on-surface hover:opacity-90 transition-opacity">
+            <span class="material-symbols-outlined text-xs font-bold">add</span>
+        </button>
+    </div>
+    <div class="h-6 w-[1px] bg-border-light"></div>
+    <div class="flex items-center gap-2 cursor-pointer group">
+        <div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden border border-border-light">
+            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2oVfA8b99Xuyu7HbzBdnA-3FBPtk7R9iHLEysRwnfR1gBlnA5CoFayqiowE2djaOuDUxWvDWd34ixQRcka03gfiYAMjooUMbFkUIdHHDlwUMvD0YcJzSzw15sGipsidBkuu-u2q_VcZMWkDFI4AZ322qOrIe_a4EcG0WKtZ1GUJBpp5B5_oDrleqalLMrpnG-OhmGySjZHsjsylo70RPx2eF0X2sGgsj0DTIHl3CS5DNoSfyikf3l">
+        </div>
+        <span class="text-sm font-medium text-secondary group-hover:text-primary transition-colors">个人中心</span>
+    </div>
+</div></div>
+</div>
+</header>
+<main class="pt-[72px] pb-section-gap max-w-container-max mx-auto px-gutter mt-8">
+<!-- Power Dashboard Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Sidebar Navigation / Quick Stats -->
+<aside class="lg:col-span-3 flex flex-col gap-6">
+<!-- Profile Summary -->
+<section class="bg-surface-container-lowest border border-border-light p-6 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-4 mb-8">
+    <div class="w-16 h-16 rounded-full overflow-hidden">
+        <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXKCHzJmmqRaD_6lYMh1fzk33d-yWos52vXN_7AlGPOnfNM72OBpkQuUikByQB4WnaYbdH7y6De1Dx-sBgll0DhbDK5Dy7vcIYGV9ypzcc2eypOeq64fltGMasnuRxOLQsLUpH23Lqej7hRVoa14egXbjtgOVRuOXnqxZIdICnUANvxeUuEyUZSo9_uYnLHWw-pr-zKyH_GCtyfdJRD2Mcg0JvnrSIJuFasMyAt1moI1vExc9yjs-8" alt="Ace Collector">
+    </div>
+    <div>
+        <h2 class="font-bold text-lg text-on-surface">Ace Collector</h2>
+        <p class="text-xs text-text-muted">UID: 8829184</p>
+    </div>
+</div>
+<nav class="flex flex-col gap-2">
+    <button class="flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-glow text-on-surface font-bold transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+                            个人主页
+                        </button>
+    <button class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined">inventory_2</span>
+                            盲盒订单
+                        </button>
+    <button class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface hover:bg-surface-container-low transition-all">
+        <span class="material-symbols-outlined">local_shipping</span>
+        <span class="font-medium">物流订单</span>
+    </button>
+    <button class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface hover:bg-surface-container-low transition-all"><span class="material-symbols-outlined">credit_card</span>
+                            支付方式</button>
+    <button class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface hover:bg-surface-container-low transition-all">
+        <span class="material-symbols-outlined">location_on</span>
+        <span class="font-medium">地址簿</span>
+    </button>
+    <button class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface hover:bg-surface-container-low transition-all">
+        <span class="material-symbols-outlined">settings</span>
+        <span class="font-medium">个人设置</span>
+    </button>
+</nav></section>
+<!-- Logistics Widget -->
+
+</aside>
+<!-- Main Content Area -->
+<div class="lg:col-span-9 flex flex-col gap-8">
+<!-- High-Efficiency Wallet Widget -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="md:col-span-2 bg-surface-container-lowest border border-border-light p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] relative overflow-hidden">
+<div class="absolute top-0 right-0 p-8 opacity-10">
+<span class="material-symbols-outlined text-[120px]">account_balance_wallet</span>
+</div>
+<div class="relative z-10">
+<p class="font-label-sm text-text-muted uppercase tracking-widest mb-2">OK COIN 余额</p>
+<div class="flex items-baseline gap-2 mb-8">
+<h1 class="font-display-lg text-display-lg text-primary">42,890.00</h1>
+<span class="font-label-sm text-text-muted">CNY</span>
+</div>
+<div class="flex gap-4">
+<button class="px-8 py-3 bg-primary-container text-on-primary-container font-bold rounded-lg hover:shadow-lg transition-all active:scale-95" style="transform: scale(1);">充值积分</button>
+<button class="px-8 py-3 border border-border-light font-bold rounded-lg hover:bg-surface-container-low transition-all active:scale-95">收支明细</button>
+</div>
+</div>
+</div>
+<div class="bg-primary text-on-primary p-8 rounded-xl flex flex-col justify-between shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
+<div>
+<p class="font-label-sm opacity-70 uppercase tracking-widest mb-2">可回收总额</p>
+<h2 class="font-headline-lg text-headline-lg">¥ 12,450</h2>
+</div>
+<div class="pt-4 border-t border-on-primary/20">
+<p class="text-sm opacity-80 mb-4">仓库内共有 156 张卡牌可立即回收为积分</p>
+<button class="w-full py-3 bg-white text-primary font-bold rounded-lg hover:bg-primary-container transition-all active:scale-95">前往批量回收</button>
+</div>
+</div>
+</section>
+<!-- Warehouse Power Manager -->
+<section class="bg-surface-container-lowest border border-border-light rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden">
+<!-- Action Bar -->
+<div class="px-8 py-4 bg-surface-container-low border-b border-border-light flex flex-wrap justify-between items-center gap-4">
+<div class="flex items-center gap-6">
+<h3 class="font-headline-md text-on-surface">卡牌仓库</h3>
+
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 border border-primary text-primary rounded-lg font-bold text-sm hover:bg-primary/5 transition-all" style="transform: scale(1);">
+<span class="material-symbols-outlined text-sm">autorenew</span>
+                                批量回收
+                            </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-bold text-sm hover:opacity-90 shadow-sm transition-all" style="transform: scale(1);">
+<span class="material-symbols-outlined text-sm">local_shipping</span>
+                                申请发货
+                            </button>
+</div>
+</div>
+<!-- Filter & Grid -->
+<div class="p-8">
+<div class="flex justify-between items-center mb-6">
+<div class="flex gap-4">
+<button class="px-4 py-1.5 bg-primary-container rounded-full text-xs font-bold">全部</button>
+<button class="px-4 py-1.5 bg-surface-container-low rounded-full text-xs font-medium text-text-muted hover:bg-surface-container-high transition-colors" style="transform: scale(1);">最新获得</button>
+<button class="px-4 py-1.5 bg-surface-container-low rounded-full text-xs font-medium text-text-muted hover:bg-surface-container-high transition-colors">高价值</button>
+</div>
+<div class="relative">
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-transparent focus:border-primary focus:ring-0 rounded-lg text-sm w-64 transition-all" placeholder="搜索卡牌名称..." type="text">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-lg">search</span>
+</div>
+</div>
+<!-- Card Grid (Compact) -->
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
+<!-- Card Item -->
+<div class="group border border-border-light rounded-lg overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1 bg-surface-container-lowest">
+<div class="aspect-[3/4] relative">
+<img class="w-full h-full object-cover" data-alt="A holographic, high-rarity trading card featuring a vibrant mythical creature. Neon glow effects, premium texture, dark minimalist background to highlight card details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACg9L8R3R16LlxdiZT-ESzJsuV23dF0NHyCrCSPhPk4d898yV3UF6w0xPB20H4-y0RZGi1L87ZgYepukt6Rgy05rNH63tpjdo7p4wo73ltvCCFoJ_NWjNUDfEl44r3s9tPdWubU5UHSEbVJI_81M9sVW_C9Zk8CaO9E7qfFF7epMxyrXk3utR_UPKpngoMofoqdYu8B-42O3RAHssvYKXXQnusLkEqeeHMqMrLzBYMnClxXejj0pJ2">
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center gap-2">
+<input class="absolute top-2 right-2 w-5 h-5 rounded text-primary focus:ring-primary" type="checkbox">
+<button class="bg-white text-on-surface px-4 py-1.5 rounded-full text-xs font-bold hover:bg-primary-container transition-colors">详情</button>
+</div>
+<div class="absolute bottom-2 left-2 px-2 py-0.5 bg-black/60 backdrop-blur-md rounded text-[10px] text-white font-bold">SSR</div>
+</div>
+<div class="p-3">
+<h4 class="text-sm font-bold truncate">创世神龙 #092</h4>
+<p class="text-primary text-xs font-bold mt-1">回收: ¥450</p>
+</div>
+</div>
+<!-- Repeat Card Item -->
+<div class="group border border-border-light rounded-lg overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1 bg-surface-container-lowest">
+<div class="aspect-[3/4] relative">
+<img class="w-full h-full object-cover" data-alt="An intricately designed digital trading card showing a futuristic warrior. Metallic accents, dramatic lighting, premium high-gloss finish, centered hero image." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3_rSFO5VmwjnmFKGzMNB7rtfOBvM6wZbDFHVXAUND4_IyxVcZ9T3ERgbnGZZJkgIYwWifqv8ISeCCBr2eAmH0O72GIhcjZRwBMqjIBLhcD-8UkYvLi1y48Iz2srKatdoqreyzJB9Xwup8IvSHJCRMJ7xChQ-nymQbnsN_y8IRyXdl8-GWAEdYGBs1E9ROoVevwzD1Ttx5d78mx7B7f_AuacwwScUnuvCZPlU5DBctw2ZJECiNuRtv">
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center gap-2">
+<input class="absolute top-2 right-2 w-5 h-5 rounded text-primary focus:ring-primary" type="checkbox">
+<button class="bg-white text-on-surface px-4 py-1.5 rounded-full text-xs font-bold hover:bg-primary-container transition-colors">详情</button>
+</div>
+<div class="absolute bottom-2 left-2 px-2 py-0.5 bg-black/60 backdrop-blur-md rounded text-[10px] text-white font-bold">SSR</div>
+</div>
+<div class="p-3">
+<h4 class="text-sm font-bold truncate">机械先锋 EX</h4>
+<p class="text-primary text-xs font-bold mt-1">回收: ¥380</p>
+</div>
+</div>
+<!-- Repeat for others... simplified for layout demo -->
+<div class="group border border-border-light rounded-lg overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1 bg-surface-container-lowest">
+<div class="aspect-[3/4] relative">
+<img class="w-full h-full object-cover" data-alt="A stylized trading card illustration of an enchanted forest spirit. Soft ethereal glow, pastel color palette, minimalist but detailed character design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACSydnhwPdu1xjmzPK4f3lhPG7n8JeElO2tnx2DdjKr4VX-u9ExQc6OcNqJPhE2N9Qyix7ljYjx2d7ReBM0sdQ0v0Fzmc6ta_t3JNfQFi0akOvP2Tz4_743rtxt_coTL_pbOs8zRRMCVEtQLURkrFb7Ms_bDiNXhVdAsYcGnySchfytTflq9T9dnjNZrnoMUC7Q8P5aLVfvl6t4e8qXe2ua8mCWlbEIryVoYPUUDAmJ_lKvcbv0gLp">
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center gap-2">
+<input class="absolute top-2 right-2 w-5 h-5 rounded text-primary focus:ring-primary" type="checkbox">
+<button class="bg-white text-on-surface px-4 py-1.5 rounded-full text-xs font-bold hover:bg-primary-container transition-colors">详情</button>
+</div>
+<div class="absolute bottom-2 left-2 px-2 py-0.5 bg-black/60 backdrop-blur-md rounded text-[10px] text-white font-bold">SR</div>
+</div>
+<div class="p-3">
+<h4 class="text-sm font-bold truncate">林间低语者</h4>
+<p class="text-primary text-xs font-bold mt-1">回收: ¥120</p>
+</div>
+</div>
+<!-- Sold out / Locked State demo -->
+<div class="group border border-border-light rounded-lg overflow-hidden bg-surface-container-low relative">
+<div class="aspect-[3/4] relative grayscale opacity-40">
+<img class="w-full h-full object-cover" data-alt="A dark, mysterious trading card design with a shadow motif. High contrast, subtle metallic highlights, blurred background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4dyutqJjqqF5xCQ-j2rejUlyWzyO18dx6PkTy5l9yrFuElN1XP9LOmnMOZqylatlOLfgixroy1tOUFC8JnPswZJ8pj7VKHUxIJd-oOzcbnSJ0rvflcpqQTngk6zPMbce8kk2j5qMrqfmftmq_a7XIUzUGpuP3EMBYMLI446bDb7MkC3S5aPe4zTj5aCsBFnvVmW_sw30aAkjRy6zN8nw6t3G91Iq4p0dLN9w7x5jgMHUtSwqaF3J1">
+</div>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="px-4 py-1 bg-black/70 text-white font-label-sm rounded uppercase rotate-12">发货中</span>
+</div>
+<div class="p-3">
+<h4 class="text-sm font-bold truncate text-text-muted">深渊主宰</h4>
+<p class="text-text-muted text-xs font-bold mt-1">已锁定</p>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center border-2 border-dashed border-border-light rounded-lg aspect-[3/4] hover:bg-surface-container-low cursor-pointer transition-all">
+<span class="material-symbols-outlined text-text-muted mb-2">add_circle</span>
+<span class="text-xs text-text-muted font-bold">开启新盲盒</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Transactions History -->
+
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-gap bg-surface-container-lowest border-t border-border-light">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-gutter font-body-md text-body-md">
+<div class="flex flex-col gap-4">
+<div class="font-headline-md text-headline-md font-bold text-primary">OK Card Empire</div>
+<p class="text-text-muted text-sm">致力于为全球收藏家提供最安全、最透明的卡牌交易与拆盒体验。</p>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-bold text-on-surface">关于我们</h4>
+<div class="flex flex-col gap-2">
+<a class="text-text-muted hover:text-primary transition-colors hover:underline" href="#">About</a>
+<a class="text-text-muted hover:text-primary transition-colors hover:underline" href="#">Help</a>
+<a class="text-text-muted hover:text-primary transition-colors hover:underline" href="#">Terms</a>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-bold text-on-surface">支付方式</h4>
+<div class="flex flex-col gap-2">
+<a class="text-text-muted hover:text-primary transition-colors hover:underline" href="#">Payment Methods</a>
+<div class="flex gap-2 opacity-50 grayscale hover:grayscale-0 transition-all cursor-pointer">
+<span class="material-symbols-outlined">payments</span>
+<span class="material-symbols-outlined">account_balance</span>
+<span class="material-symbols-outlined">contactless</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-bold text-on-surface">联系支持</h4>
+<p class="text-text-muted text-sm">工作日 09:00 - 18:00<br>support@okcardempire.com</p>
+</div>
+</div>
+<div class="mt-16 text-center text-text-muted text-sm">
+            © 2024 OK Card Empire. All rights reserved.
+        </div>
+</footer>
+<script>
+        // Micro-interactions for buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.style.transform = 'scale(0.97)';
+            });
+            button.addEventListener('mouseup', () => {
+                button.style.transform = 'scale(1)';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'scale(1)';
+            });
+        });
+
+        // Search highlight effect
+        const searchInput = document.querySelector('input[type="text"]');
+        if(searchInput) {
+            searchInput.addEventListener('focus', () => {
+                searchInput.parentElement.classList.add('ring-2', 'ring-primary/20');
+            });
+            searchInput.addEventListener('blur', () => {
+                searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20');
+            });
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

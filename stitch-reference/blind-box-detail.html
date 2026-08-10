@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="zh-CN"><head><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>盲盒详情 - 精灵天团理发店系列 - OK Card Empire</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#D4AF37',
+              yellow: '#FCD34D',
+              dark: '#1A1A1A',
+              gray: '#F3F4F6'
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-animations">
+    .hover-scale { transition: transform 0.2s ease-in-out; }
+    .hover-scale:hover { transform: scale(1.02); }
+    .progress-glow { box-shadow: 0 0 8px rgba(212, 175, 55, 0.4); }
+  </style>
+</head>
+<body class="bg-white text-brand-dark font-sans antialiased">
+<!-- BEGIN: MainHeader -->
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+<div class="mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-16"><!-- Logo -->
+<div class="flex items-center gap-3 pl-4">
+  <div class="w-8 h-8 bg-[#705d00] rounded flex items-center justify-center">
+    <span class="material-symbols-outlined text-white text-sm">style</span>
+  </div>
+  <span class="text-brand-dark font-bold text-sm">OK Card Empire</span>
+</div>
+
+<!-- Navigation -->
+<nav class="flex-1 flex justify-center space-x-8">
+  <a class="text-brand-dark font-bold text-sm border-b-2 border-[#705d00] pb-1" href="#">首页</a>
+  <a class="text-gray-500 hover:text-brand-dark font-medium text-sm" href="#">盲盒专区</a>
+  <a class="text-gray-500 hover:text-brand-dark font-medium text-sm" href="#">常见问题</a>
+  <a class="text-gray-500 hover:text-brand-dark font-medium text-sm" href="#">联系我们</a>
+</nav>
+
+<!-- User Actions -->
+<div class="flex items-center space-x-6 pr-4">
+  <div class="flex items-center gap-2">
+    <span class="material-symbols-outlined text-gray-600 text-xl">database</span>
+    <span class="text-sm text-gray-700">OK Coin: 0</span>
+    <button class="w-5 h-5 rounded-full bg-[#FFB800] text-white flex items-center justify-center">
+      <span class="material-symbols-outlined text-xs font-bold">add</span>
+    </button>
+  </div>
+  <div class="h-6 w-px bg-gray-200"></div>
+  <div class="flex items-center gap-2">
+    <div class="w-8 h-8 rounded-full overflow-hidden border border-gray-200">
+      <img alt="Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhBFN7eCJ5kwqkgnHjRbqQLxtKOqdwj5_7F9eSmgv_ytDIBLyZPTi1mt2GzY7Fz4UU-8gA_0IOZCdxWjTloiCmlm3tTQ4-rQgvD3ubzmvE7omnVtgu629XSnVklEfYzIm3DQbD4qSnnPa7EkueK9cQ0Ago-F8Y6yAfYWPh0JOuVHBha55O9SAVopNJHrW84D_p2aX2IRoiFLnOf0Pck7IMBf7a3pa-F27cXHei_CMPFAq9ulbu6r-E">
+    </div>
+    <span class="text-sm text-gray-700">个人中心</span>
+  </div>
+</div></div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<!-- BEGIN: Breadcrumbs -->
+<nav class="flex mb-8 text-sm text-gray-500" data-purpose="breadcrumbs">
+<a class="hover:text-brand-gold" href="#">首页</a>
+<span class="mx-2">/</span>
+<a class="hover:text-brand-gold" href="#">盲盒专区</a>
+<span class="mx-2">/</span>
+<span class="text-brand-dark font-medium">精灵天团理发店系列</span>
+</nav>
+<!-- END: Breadcrumbs -->
+<!-- BEGIN: ProductHero -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16" data-purpose="product-hero">
+<!-- Left: Preview Image -->
+<div class="bg-gray-50 rounded-2xl flex items-center justify-center p-8 border border-gray-100">
+<img alt="Product Preview" class="max-w-full h-auto drop-shadow-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKpPKHQaDeM3DnEWytqA3q1gjIxVmcqrB1RrByn_YxnUfkdbLjso9ZASrz2rNaUox6I2KRUfs_iacPSYxPoqVKPrpjtNIAncI6XANnFTu99S89qoIziPm3hCBl50u-3c6vjsaQqiHXKvrUdohi-As6uf2TL5qlv5xi74h9PhNVDiJXX8zHSxSAKlvQGLw24G_QM4xt4DBK5h5B7r2EMaA8_m0IWkSYHPmOXWTcSNqhINADPVZboIbV">
+</div>
+<!-- Right: Details -->
+<div class="flex flex-col">
+<div class="mb-6">
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="px-3 py-1 bg-brand-dark text-white text-xs font-bold rounded">限量款</span>
+<span class="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded">热销</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded border border-gray-200">Labubu</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded border border-gray-200">毛绒</span>
+</div>
+<h1 class="text-3xl font-bold text-gray-900 mb-4">精灵天团理发店系列 - 搪胶毛绒挂件</h1>
+<p class="text-gray-500 leading-relaxed">至臻级稀有挂件，精选搪胶工艺与高质感毛绒材质。每一款都拥有独特的理发师造型设计，全球限量发售，是收藏家的不二之选。</p>
+</div>
+<!-- Pricing Card -->
+<div class="bg-gray-50 rounded-xl p-6 mb-6 border border-gray-100">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<p class="text-sm text-gray-500 mb-1">单次抽取</p>
+<p class="text-2xl font-bold text-brand-dark">500 <span class="text-sm font-medium">OKC</span></p>
+</div>
+<div class="border-l border-gray-200 pl-4">
+<p class="text-sm text-gray-500 mb-1">十连抽</p>
+<p class="text-2xl font-bold text-brand-gold">5,000 <span class="text-sm font-medium text-brand-dark">OKC</span></p>
+</div>
+</div>
+</div>
+<!-- Wallet Balance -->
+<div class="flex items-center justify-between mb-8 px-2">
+<div class="flex items-center gap-2">
+<span class="text-sm text-gray-600">当前余额:</span>
+<span class="font-bold text-brand-dark">12,450 OK Coin</span>
+<button class="w-6 h-6 rounded-full bg-brand-gold text-white flex items-center justify-center hover:bg-brand-dark transition-colors">
+<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+</svg>
+</button>
+</div>
+<div class="text-sm text-brand-gold font-medium">充值即赠 10%</div>
+</div>
+<!-- Inventory Progress -->
+<div class="mb-10">
+<div class="flex justify-between items-end mb-2">
+<span class="text-sm font-medium text-gray-700">剩余库存</span>
+<span class="text-sm font-bold text-brand-gold">38 / 100 <span class="text-gray-400 font-normal">(38%)</span></span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+<div class="bg-brand-gold h-full progress-glow" style="width: 38%"></div>
+</div>
+</div>
+<!-- Call to Actions -->
+<div class="grid grid-cols-2 gap-4">
+<button class="py-4 px-8 rounded-lg border-2 border-brand-dark text-brand-dark font-bold hover:bg-brand-dark hover:text-white transition-all text-lg">
+            单次抽取
+          </button>
+<button class="py-4 px-8 rounded-lg bg-brand-gold text-brand-dark font-bold hover:bg-brand-yellow transition-all text-lg shadow-lg shadow-brand-gold/20">
+            十连抽</button>
+</div>
+</div>
+</section>
+<!-- END: ProductHero -->
+<!-- BEGIN: PrizePool -->
+<section class="mb-16" data-purpose="prize-pool-section">
+<div class="flex items-center justify-between border-b border-gray-100 pb-4 mb-8">
+<h2 class="text-2xl font-bold">奖池详情</h2>
+<span class="text-sm text-gray-500">所有卡片均为正品保障，支持在线回收</span>
+</div>
+<!-- Tiers -->
+<div class="space-y-12">
+<!-- Tier 1 -->
+<div data-purpose="prize-tier-1">
+<div class="flex items-center gap-3 mb-6">
+<span class="bg-brand-gold text-white px-3 py-1 rounded-full text-xs font-bold">一等奖</span>
+<span class="text-gray-500 text-sm">中奖概率: 1%</span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+<div class="bg-white border border-brand-gold rounded-xl p-4 hover-scale relative overflow-hidden group">
+<div class="absolute top-0 right-0 bg-brand-gold text-white px-2 py-1 text-[10px] rounded-bl-lg font-bold z-10">LEGENDARY</div>
+<div class="aspect-[3/4] bg-gray-50 rounded-lg mb-3 overflow-hidden">
+<img alt="First Prize Card" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATrs0CsDuQ9kf43dlhHcS_VSe0PiL0mX4jx_1qMOopXAqzctJZiszSnW3R5AgFmyGSs0mQdlCBH2eMpd2E3tpCZ973JyX-jRTl7XQeJDXSDYirm_hoaUIsGZ7WJAVXsml91QptZ0ET0fdIuANJM8v4sC6eEcT91YL4kSIeeS9WpngBlN-V1Fd0ryMn42eFwvBRC0JUuQtKWQiLcGs6lpqwB6nAd-UXYbwHlr8DpkiFSMnuWPE7FMCe">
+</div>
+<p class="text-sm font-bold truncate">至尊·金光快龙</p>
+<div class="flex justify-between items-center mt-2">
+<span class="text-[10px] text-brand-gold font-bold">2,000 OKC</span>
+<span class="text-[10px] text-gray-400">余 1</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Tier 2 -->
+<div data-purpose="prize-tier-2">
+<div class="flex items-center gap-3 mb-6">
+<span class="bg-gray-800 text-white px-3 py-1 rounded-full text-xs font-bold">二等奖</span>
+<span class="text-gray-500 text-sm">中奖概率: 5%</span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+<div class="bg-white border border-gray-100 rounded-xl p-4 hover-scale">
+<div class="aspect-[3/4] bg-gray-50 rounded-lg mb-3 overflow-hidden">
+<img alt="Prize Card" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhVesZZCSS87Ldhf2Obze7SWeij9TNNE55eUm043voK5l6Si9PMwudQbCaDh_v6sIoXefMIcu1ixqKFwos120L59HE6_tehytFEPdXudANsctQcl_LJAPcaiXm03Y20Z0eKMGOcdjwxC6o_SlEKFkZG9n3usAaCPIOOO3I3g2snQYxdu5X0CTDhZVebEZTXqZ6CKznZyb2Hqb8KD5BPeIqIlnxYuNodekxMUDFzjiEn8xcM-67HUxo">
+</div>
+<p class="text-sm font-bold truncate">耿鬼 VMAX</p>
+<div class="flex justify-between items-center mt-2">
+<span class="text-[10px] text-brand-gold font-bold">800 OKC</span>
+<span class="text-[10px] text-gray-400">余 5</span>
+</div>
+</div>
+<div class="bg-white border border-gray-100 rounded-xl p-4 hover-scale">
+<div class="aspect-[3/4] bg-gray-50 rounded-lg mb-3 overflow-hidden">
+<img alt="Prize Card" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl1Q_Ts2HD7EQWZkFz5iwpzG6ncLURQ_ltZBT4zRIXKqxgjNKG4RMUWCxVBCI-lBXDVaVXkyjdSm_XXMpIzqeucwaHQ81veVX4Zcc9foKGZaBvw61Q4jMrs8X7wovzLI4JfweeDYDC6T1a5r8K1JxOKbsk_49EF_VnSL8E4lWZ2fwxuEx5pbkU0gZmBDOl7zCfVeio5DT3NjhKudRKsaeiakeqnRMnfwFlpFAQYpQK6kfcRWq0C7zR">
+</div>
+<p class="text-sm font-bold truncate">超梦 GX</p>
+<div class="flex justify-between items-center mt-2">
+<span class="text-[10px] text-brand-gold font-bold">800 OKC</span>
+<span class="text-[10px] text-gray-400">余 3</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Guarantee Section -->
+<div class="bg-brand-gold/5 border border-brand-gold/20 rounded-2xl p-8" data-purpose="guarantee-section">
+<div class="flex flex-col md:flex-row items-center gap-8">
+<div class="w-32 h-44 bg-gradient-to-br from-brand-gold to-brand-yellow rounded-xl shadow-xl flex items-center justify-center border-4 border-white">
+<svg class="h-16 w-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+</div>
+<div>
+<div class="flex items-center gap-3 mb-2">
+<span class="bg-brand-gold text-white px-3 py-1 rounded-full text-xs font-bold">保底奖励</span>
+<h3 class="text-xl font-bold">保底奖励说明</h3>
+</div>
+<p class="text-gray-600 mb-4 max-w-xl">如未中以上奖项，系统将自动从同价值奖池中随机分配一张宝可梦卡牌作为保底奖励。确保每次抽取均有所获。</p>
+<p class="text-sm font-bold text-brand-gold">随机获得同价值宝可梦卡牌一张</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: PrizePool -->
+<!-- BEGIN: InfoSections -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16" data-purpose="info-sections">
+<!-- Rules -->
+<div class="bg-gray-50 rounded-xl p-6 border border-gray-100">
+<div class="flex items-center gap-3 mb-4">
+<div class="p-2 bg-brand-gold/10 rounded-lg text-brand-gold">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="font-bold">玩法规则</h3>
+</div>
+<ul class="text-sm text-gray-500 space-y-3 leading-relaxed">
+<li class="">• 本期盲盒不设大保底机制</li>
+<li class="">• 所有概率均基于实时剩余库存动态计算</li>
+<li class="">• 每次抽取均独立计算概率，公开透明</li>
+</ul>
+</div>
+<!-- Recycling -->
+<div class="bg-gray-50 rounded-xl p-6 border border-gray-100">
+<div class="flex items-center gap-3 mb-4">
+<div class="p-2 bg-brand-gold/10 rounded-lg text-brand-gold">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="font-bold">回收说明</h3>
+</div>
+<ul class="text-sm text-gray-500 space-y-3 leading-relaxed">
+<li class="">• 抽中卡片后可选择立即回收或放入卡库</li>
+<li class="">• <span class="text-brand-dark font-medium">100% 回收价值：</span>回收可获得等额 Locked Coin</li>
+<li class="">• 回收金额可直接用于再次参与抽取</li>
+</ul>
+</div>
+<!-- Shipping -->
+<div class="bg-gray-50 rounded-xl p-6 border border-gray-100">
+<div class="flex items-center gap-3 mb-4">
+<div class="p-2 bg-brand-gold/10 rounded-lg text-brand-gold">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="font-bold">发货说明</h3>
+</div>
+<ul class="text-sm text-gray-500 space-y-3 leading-relaxed">
+<li class="">• 申请发货需满足 <span class="text-brand-dark font-medium">2,000 OKC</span> 以上门槛</li>
+<li class="">• 满足门槛即享全国顺丰免运费</li>
+<li class="">• 每周一及周四统一安排打包发出</li>
+</ul>
+</div>
+</section>
+<!-- END: InfoSections -->
+</main>
+<!-- BEGIN: MainFooter -->
+<footer class="bg-gray-50 pt-16 pb-8 border-t border-gray-200">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+<div class="col-span-1 md:col-span-1">
+<h2 class="text-2xl font-bold text-brand-gold mb-4">OK Card Empire</h2>
+<p class="text-sm text-gray-500 mb-6">高端收藏品交易平台，为您带来最纯粹的盲盒与卡牌收集体验。</p>
+<div class="flex space-x-4 text-gray-400">
+<a class="hover:text-brand-gold" href="#"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.341-3.369-1.341-.454-1.152-1.11-1.459-1.11-1.459-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12c0-5.523-4.477-10-10-10z"></path></svg></a>
+<a class="hover:text-brand-gold" href="#"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg></a>
+</div>
+</div>
+<div>
+<h3 class="font-bold mb-4">关于我们</h3>
+<ul class="text-sm text-gray-500 space-y-2">
+<li class=""><a class="hover:text-brand-gold" href="#">公司简介</a></li>
+<li class=""><a class="hover:text-brand-gold" href="#">招贤纳士</a></li>
+<li class=""><a class="hover:text-brand-gold" href="#">品牌故事</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-bold mb-4">帮助中心</h3>
+<ul class="text-sm text-gray-500 space-y-2">
+<li class=""><a class="hover:text-brand-gold" href="#">客服中心</a></li>
+<li class=""><a class="hover:text-brand-gold" href="#">配送政策</a></li>
+<li class=""><a class="hover:text-brand-gold" href="#">退换货说明</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-bold mb-4">订阅资讯</h3>
+<p class="text-sm text-gray-500 mb-4">订阅我们的邮件以获取最新盲盒资讯。</p>
+<div class="flex">
+<input class="flex-1 bg-white border border-gray-200 px-4 py-2 rounded-l-lg focus:outline-none focus:border-brand-gold" placeholder="您的电子邮箱" type="email">
+<button class="bg-brand-gold text-brand-dark px-4 py-2 rounded-r-lg font-bold">订阅</button>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-200 pt-8 text-center text-sm text-gray-400">
+        © 2024 OK Card Empire. 版权所有。
+      </div>
+</div>
+</footer>
+<!-- END: MainFooter -->
+
+
+
+
+</body></html>

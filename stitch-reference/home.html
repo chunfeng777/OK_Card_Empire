@@ -1,0 +1,586 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>OK Card Empire</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style data-purpose="base-styles">
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #ffffff;
+      color: #1a1a1a;
+      overflow-x: hidden;
+    }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1; 
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #dadada; 
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #c1c1c1; 
+    }
+  </style>
+<style data-purpose="custom-utilities">
+    .text-primary { color: #d4af37; }
+    .bg-primary { background-color: #d4af37; }
+    .border-primary { border-color: #d4af37; }
+    
+    .hover-scale { transition: transform 0.3s ease; }
+    .hover-scale:hover { transform: scale(1.02); }
+    
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .hero-overlay {
+      background: linear-gradient(to right, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.4) 50%, transparent 100%);
+    }
+
+    .card-shadow {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+    
+    .progress-bar-bg {
+      background-color: #f3f3f4;
+    }
+    .progress-bar-fill {
+      background-color: #6b7280;
+    }
+    .progress-bar-fill.active {
+      background-color: #d4af37;
+    }
+
+    .section-title::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 24px;
+      background-color: #d4af37;
+      margin-right: 12px;
+      vertical-align: middle;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="antialiased">
+<!-- BEGIN: MainHeader -->
+<header class="fixed w-full top-0 z-50 glass-nav transition-all duration-300">
+<div class="max-w-[1440px] mx-auto px-6 h-20 flex items-center justify-between">
+<!-- Logo -->
+<a class="flex items-center gap-2" href="#">
+<div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center text-white font-bold text-xl">
+<i class="fa-solid fa-cube"></i>
+</div>
+<span class="font-bold text-xl tracking-tight">OK Card Empire</span>
+</a>
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex items-center gap-8 font-medium text-[15px]">
+<a class="text-black border-b-2 border-black pb-1" href="#">首页</a>
+<a class="text-gray-500 hover:text-black transition-colors pb-1" href="#">盲盒专区</a>
+<a class="text-gray-500 hover:text-black transition-colors pb-1" href="#">常见问题</a>
+<a class="text-gray-500 hover:text-black transition-colors pb-1" href="#">联系我们</a>
+</nav>
+<!-- Right Actions -->
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 bg-gray-100 rounded-full py-1.5 px-4 text-sm font-medium">
+<i class="fa-solid fa-coins text-gray-500 text-xs"></i>
+<span class="">OK Coin: <span class="font-bold">0</span></span>
+<button class="bg-[#d4af37] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs ml-1 hover:bg-[#c4a132] transition-colors">
+<i class="fa-solid fa-plus"></i>
+</button>
+</div>
+<div class="flex items-center gap-3 cursor-pointer group">
+<img alt="User Avatar" class="w-9 h-9 rounded-full object-cover border border-gray-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMXxIgz_vv0zKUETMV4pglujqNBvfLpU_hbHMhpg46DKkjds46lx6nfvuo-XyALwVRVAkSLHcnAHccDqsG6z0AgKpBKzbMULBCheh1d4xjQVCtdC9-Cwv6Ef-tzcr75V_Dbb25CcU6aXoKuAuJDj5sS9wBTcDJhqp1FIoXRFShdTv4n4TLjqfabxbcVmM_mA4uOkRyTWisKRyrJ-jqHJ8n4UPHlMJ52cacBHlrEEy_AfJUxH9WG6Rk">
+<span class="text-sm font-medium text-gray-700 group-hover:text-black transition-colors hidden sm:block">个人中心</span>
+</div>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: MainContent -->
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative w-full h-[600px] overflow-hidden bg-slate-900">
+<img alt="Astral Radiance Booster Box" class="absolute inset-0 w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1xY4Gi1FiZnJ-uW8apJcUWi0AHQzHxhpy4jGIuuYvgL3AHszNj9oHL_ftsvhnrfvuKgc9YC3BkChlivAPaq7fualUY3bklQkcGjxhRxt_YlKCG8kA2aCKMg8WMoovTuv5uRbXvn2rurr75CdyAaJAmM-AVclLccXKVY-xuSHnV_UYfnXC8JDws9ptxgXkhNIjvGSh_my04kY986F4p_9cTeQDBtVvGWCaAGNDiCR3rvNfVX8D7sZO">
+<div class="absolute inset-0 hero-overlay"></div>
+<div class="relative max-w-[1440px] mx-auto px-6 h-full flex items-center">
+<div class="max-w-xl text-white">
+<span class="inline-flex items-center gap-2 bg-black/40 backdrop-blur-sm border border-white/20 text-[#d4af37] text-xs font-bold px-3 py-1.5 rounded-full mb-6">
+<i class="fa-solid fa-bolt text-[10px]"></i> UR级爆率限时提升
+          </span>
+<h1 class="text-5xl font-bold mb-6 leading-tight">星辰光辉系列 · 精英版</h1>
+<p class="text-gray-300 text-lg mb-10 leading-relaxed max-w-md">
+            探索隐藏在深空中的宇宙力量。限量版补充包，包含极其罕见的全息时空变体卡牌。
+          </p>
+<div class="flex items-center gap-4">
+<button class="bg-[#d4af37] hover:bg-[#c4a132] text-black font-bold py-3.5 px-8 rounded-full transition-all hover:-translate-y-0.5 shadow-lg shadow-[#d4af37]/30">
+              立即拆盒
+            </button>
+<button class="bg-black/30 hover:bg-black/50 border border-white/30 backdrop-blur-md text-white font-medium py-3.5 px-8 rounded-full transition-all">
+              查看全系列
+            </button>
+</div>
+</div>
+</div>
+<!-- Carousel Indicators -->
+<div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
+<button class="w-8 h-1.5 rounded-full bg-[#d4af37]"></button>
+<button class="w-8 h-1.5 rounded-full bg-white/30 hover:bg-white/50 transition-colors"></button>
+<button class="w-8 h-1.5 rounded-full bg-white/30 hover:bg-white/50 transition-colors"></button>
+</div>
+</section>
+<!-- Content Sections Wrapper -->
+<div class="max-w-[1440px] mx-auto px-6 py-20 space-y-24">
+<!-- New User Special Section -->
+<section>
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-bold text-gray-900 section-title">新人福利专区</h2>
+<a class="text-sm text-gray-500 hover:text-black flex items-center gap-1 transition-colors" href="#">查看全部 <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Item 1 -->
+<div class="bg-white rounded-2xl p-4 border border-gray-100 card-shadow hover-scale group cursor-pointer relative overflow-hidden flex flex-col">
+<div class="absolute top-4 left-4 z-10">
+<span class="bg-[#6b7280] text-white text-[10px] font-bold px-2 py-1 rounded-sm">新人专享</span>
+</div>
+<div class="bg-gray-50 rounded-xl aspect-square mb-4 p-4 flex items-center justify-center relative">
+<img alt="新手精英启动包" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX5iNpFSD46yC4E7_miajNgCfpQBv02HfLaZOWFCEsIdtnCgeF2WRlID59TvOQ9_sfeTnezjMFFoN51cYe-pcMXXxsM7EkNXTuzCI0411eGCV1Hw_LHdxHQ5aWA9cmlKj-VQaNeIOCnVx6hay8Jpqm8igznyXZlmuK4TPvDVFmt4I9eq0NHWvo3nsf7-VnzHgqQgkAw_qdPUy69Zkd7Cf6Ceagph9Vf17ONgxw-XxmZKSPgygriyWY">
+</div>
+<div class="flex-1 flex flex-col">
+<h3 class="font-bold text-lg text-gray-900 mb-1">新手精英启动包</h3>
+<div class="flex items-end gap-2 mb-4">
+<span class="text-xl font-bold text-[#d4af37]">500 OKC</span>
+<span class="text-sm text-gray-400 line-through mb-0.5">1,200 OKC</span>
+</div>
+<div class="mt-auto">
+<div class="flex justify-between text-[11px] text-gray-500 mb-2">
+<span class="">当前库存</span>
+<span class="">85%</span>
+</div>
+<div class="h-1.5 w-full progress-bar-bg rounded-full overflow-hidden">
+<div class="h-full bg-[#d4af37] rounded-full" style="width: 85%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 (Sold Out) -->
+<div class="bg-white rounded-2xl p-4 border border-gray-100 card-shadow relative overflow-hidden flex flex-col opacity-75">
+<div class="absolute inset-0 bg-white/40 z-20 flex items-center justify-center backdrop-blur-[1px]">
+<div class="bg-black/80 text-white font-bold py-2 px-6 rounded-full -rotate-12 text-lg">
+                已售罄
+              </div>
+</div>
+<div class="bg-gray-50 rounded-xl aspect-square mb-4 p-4 flex items-center justify-center">
+<img alt="复古经典系列 Vol.1" class="w-full h-full object-contain grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCST_goKdSMie1fYpS1rLDzYtRbGjebVdRQaGPXh47lD3Kzzvkw1gl9-REtPULxHp99lOfvoWKh-Bl1I6kycRAnPXTZyA94NL3ik1_lNFUncUreEATvzYNQ_-UjPwCra31KMfvyHE-Q_ObvW57FuZyzHSlYc6mFScAUyYVzShdbI-dXmf3pyzc0QkmYGWE0GGu9ZUYGdaQoCX_SBMm9bJufsLzBQ_2wkyQsosVce77BedXpgGUreYB">
+</div>
+<div class="flex-1 flex flex-col">
+<h3 class="font-bold text-lg text-gray-400 mb-1">复古经典系列 Vol.1</h3>
+<div class="flex items-end gap-2 mb-4">
+<span class="text-xl font-bold text-gray-400">2,500 OKC</span>
+</div>
+<div class="mt-auto">
+<div class="h-1.5 w-full progress-bar-bg rounded-full overflow-hidden">
+<div class="h-full bg-gray-300 rounded-full" style="width: 0%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-white rounded-2xl p-4 border border-gray-100 card-shadow hover-scale group cursor-pointer flex flex-col">
+<div class="bg-gray-50 rounded-xl aspect-square mb-4 p-4 flex items-center justify-center">
+<img alt="龙鳞传说入门包" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJsie-e7C0O0sd6s0X4OBLeZwg0QOmrSnvpCVd-v9dKEnoe76Q7UV5RnqgBjTh372UZuErbg5GPdqigh0lVoab1bwUfanbixhYixp-BnzkbBeOAAEyyOSxBy1lPAWFwZzzGVHcgpxx62h1OVzPrJbdA4CM3u0xBxEQHkjVp63VyAY7ZNQQqJwXk6NLuaA6dnDjMAZxzJkwTQ5tndE9cH23SvJc4o5mCVFHfhlDuob8BQBYBlhRXsXy">
+</div>
+<div class="flex-1 flex flex-col">
+<h3 class="font-bold text-lg text-gray-900 mb-1">龙鳞传说入门包</h3>
+<div class="flex items-end gap-2 mb-4">
+<span class="text-xl font-bold text-[#d4af37]">800 OKC</span>
+</div>
+<div class="mt-auto">
+<div class="flex justify-between text-[11px] text-gray-500 mb-2">
+<span class="opacity-0">当前库存</span> <!-- Hidden for alignment -->
+</div>
+<div class="h-1.5 w-full progress-bar-bg rounded-full overflow-hidden">
+<div class="h-full bg-gray-400 rounded-full" style="width: 25%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="bg-white rounded-2xl p-4 border border-gray-100 card-shadow hover-scale group cursor-pointer flex flex-col">
+<div class="bg-gray-50 rounded-xl aspect-square mb-4 p-4 flex items-center justify-center">
+<img alt="赛博创世卡包" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDagqsVDdyOkV4Bpwtwk_CYx58WWJtbtYhWcahQKAX0ssuz-neB6KdoymzfPE-P_UTmDqQNdzw0UlHMHWm4OfXrkLYu53NCpykty402Q88z1QCxtWxfensfU34VuaPDX_1BTxahNhoI8kh6ykbcty-x-BE3OCU0xcGzmfee88Ydefim8XF89ysLlCMjntI99aFPzbW2eIj0LXb7ihM9W1tOMlyCPnbvui_xu-XsFCjsvdYJ-KxCvuH1">
+</div>
+<div class="flex-1 flex flex-col">
+<h3 class="font-bold text-lg text-gray-900 mb-1">赛博创世卡包</h3>
+<div class="flex items-end gap-2 mb-4">
+<span class="text-xl font-bold text-[#d4af37]">1,100 OKC</span>
+</div>
+<div class="mt-auto">
+<div class="flex justify-between text-[11px] text-gray-500 mb-2">
+<span class="opacity-0">当前库存</span>
+</div>
+<div class="h-1.5 w-full progress-bar-bg rounded-full overflow-hidden">
+<div class="h-full bg-gray-200 rounded-full" style="width: 0%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- New Arrivals Section -->
+<section>
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-bold text-gray-900 section-title">新品上线</h2>
+<a class="text-sm text-gray-500 hover:text-black flex items-center gap-1 transition-colors" href="#">查看全部 <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Item 1 -->
+<div class="bg-white rounded-2xl p-4 border border-gray-100 card-shadow hover-scale group cursor-pointer relative flex flex-col">
+<div class="absolute top-4 left-4 z-10">
+<span class="bg-[#d4af37] text-white text-[10px] font-bold px-2 py-1 rounded-sm">新品</span>
+</div>
+<div class="bg-gray-50 rounded-xl aspect-square mb-4 p-4 flex items-center justify-center">
+<img alt="幻影旅团限定包" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7HI0o_zmgURUYRoeef2m0bzzobn2TJOBiR6sdOam6F5shyGLOR2b0NJQ4FaNar3eIRDMaqh1zyLgkrjsg_yY56-VMjc6krncaBXxwwc5db487-rDGmLZ859ENCgLSV7czbi0Yku5195sRhn4cxzGtztFtfAlln7p58NgoQ4GjyHBZ_Aju-LwgBVEwOxCCV3A0hqcu6RenB5ppHSzEkSYvTyxL1GfDEaglhsWymsQDFLlh2ZDNzlzH">
+</div>
+<div class="flex-1 flex flex-col">
+<h3 class="font-bold text-lg text-gray-900 mb-1">幻影旅团限定包</h3>
+<div class="flex items-end gap-2 mb-4">
+<span class="text-xl font-bold text-[#d4af37]">1,500 OKC</span>
+</div>
+<div class="mt-auto">
+<div class="flex justify-between text-[11px] text-gray-500 mb-2">
+<span class="">当前库存</span>
+<span class="">92%</span>
+</div>
+<div class="h-1.5 w-full progress-bar-bg rounded-full overflow-hidden">
+<div class="h-full bg-[#d4af37] rounded-full" style="width: 92%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-white rounded-2xl p-4 border border-gray-100 card-shadow hover-scale group cursor-pointer relative flex flex-col">
+<div class="absolute top-4 left-4 z-10">
+<span class="bg-[#d4af37] text-white text-[10px] font-bold px-2 py-1 rounded-sm">新品</span>
+</div>
+<div class="bg-gray-50 rounded-xl aspect-square mb-4 p-4 flex items-center justify-center">
+<img alt="机械纪元典藏版" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVdg4eNgUtK2xezZ0-f4nvqITViWDKZ6SJsDo2ZqNGN2Za9-OPYPSKUmnDoL1_zvUHyGrt9Oc404jgP4ApD7rlLorQjlUNWa9eHUoxBzavylRpQNYso9FZbvqT-r2Q7ytK11-D6eEUjNxL87zfjUPljsTADZkjXjDWBpo8JP2U3qbbOpMOp7zSvUVG7nF_R886jKWZwYiYh-EOXYiHGL4ghzgEoq-f0dNW4zS_5Sxv1zviyssCP8pd">
+</div>
+<div class="flex-1 flex flex-col">
+<h3 class="font-bold text-lg text-gray-900 mb-1">机械纪元典藏版</h3>
+<div class="flex items-end gap-2 mb-4">
+<span class="text-xl font-bold text-[#d4af37]">2,200 OKC</span>
+</div>
+<div class="mt-auto">
+<div class="flex justify-between text-[11px] text-gray-500 mb-2">
+<span class="">当前库存</span>
+<span class="">78%</span>
+</div>
+<div class="h-1.5 w-full progress-bar-bg rounded-full overflow-hidden">
+<div class="h-full bg-gray-500 rounded-full" style="width: 78%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-white rounded-2xl p-4 border border-gray-100 card-shadow hover-scale group cursor-pointer relative flex flex-col">
+<div class="absolute top-4 left-4 z-10">
+<span class="bg-[#d4af37] text-white text-[10px] font-bold px-2 py-1 rounded-sm">新品</span>
+</div>
+<div class="bg-gray-50 rounded-xl aspect-square mb-4 p-4 flex items-center justify-center">
+<img alt="和之国终章" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCw9-Vof7Xphy6X6tjEMUjphSMT7wDpLyvMOQuxiUEONUW_y2_heiZ5GsW6tpe8OJvtvzl_E1fyCxwyIukXwYYAMupoAgeNu1qw050OmpbLRVOgy4HaLtvhLs5BlY4C0ovVdiZbvjQ3wRhfkFEYaFTnQl5mil0OFyXPAV1dVDQDdEtoYLSukcmsY_5SEUNg1szJdlkJHDn29ZDOQ_SlSkUdhzi0sH0aqL-PadRwkmJ-tz1Yer2lJPMM">
+</div>
+<div class="flex-1 flex flex-col">
+<h3 class="font-bold text-lg text-gray-900 mb-1">和之国终章</h3>
+<div class="flex items-end gap-2 mb-4">
+<span class="text-xl font-bold text-[#d4af37]">3,500 OKC</span>
+</div>
+<div class="mt-auto">
+<div class="flex justify-between text-[11px] text-gray-500 mb-2">
+<span class="">当前库存</span>
+<span class="">65%</span>
+</div>
+<div class="h-1.5 w-full progress-bar-bg rounded-full overflow-hidden">
+<div class="h-full bg-gray-500 rounded-full" style="width: 65%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="bg-white rounded-2xl p-4 border border-gray-100 card-shadow hover-scale group cursor-pointer relative flex flex-col">
+<div class="absolute top-4 left-4 z-10">
+<span class="bg-[#d4af37] text-white text-[10px] font-bold px-2 py-1 rounded-sm">新品</span>
+</div>
+<div class="bg-gray-50 rounded-xl aspect-square mb-4 p-4 flex items-center justify-center">
+<img alt="雷霆万钧扩充包" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1ifNvA193GwmckwBTZn4axAUJ6MzjgrcCsaJ9KXRjxHNxcajQgxLnwGSEPKzPa91XSAlCAjwd21J_pj4MzBIYSMlh-XhGUEg2UXMNMOB1KqHUaX7L4Ly_PW2spdOk7AQp9k1K_f8PhRwxtQ8lK0ZB60eznfFk2J7KUPkuuslVvfr8eC5ILwY0WcaoZRdUdjXG5YY2mq8gVW1I-qXdsWoErKMZ4sLd489xHI51poFO694zKzLjjOjg">
+</div>
+<div class="flex-1 flex flex-col">
+<h3 class="font-bold text-lg text-gray-900 mb-1">雷霆万钧扩充包</h3>
+<div class="flex items-end gap-2 mb-4">
+<span class="text-xl font-bold text-[#d4af37]">1,200 OKC</span>
+</div>
+<div class="mt-auto">
+<div class="flex justify-between text-[11px] text-gray-500 mb-2">
+<span class="">当前库存</span>
+<span class="">88%</span>
+</div>
+<div class="h-1.5 w-full progress-bar-bg rounded-full overflow-hidden">
+<div class="h-full bg-gray-500 rounded-full" style="width: 88%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Hot Picks Section -->
+<section>
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-bold text-gray-900 section-title">热门必抢盲盒</h2>
+<a class="text-sm text-gray-500 hover:text-black flex items-center gap-1 transition-colors" href="#">查看全部 <i class="fa-solid fa-chevron-right text-[10px]"></i></a>
+</div>
+<div class="flex flex-col lg:flex-row gap-6">
+<!-- Featured Hot Pick -->
+<div class="w-full lg:w-1/3 bg-gray-50 rounded-3xl p-6 flex flex-col relative overflow-hidden group cursor-pointer border border-gray-100">
+<!-- Background Decoration -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full blur-3xl opacity-30 -mr-20 -mt-20"></div>
+<div class="relative z-10 flex-1 flex flex-col">
+<div class="mb-6 flex justify-center flex-1 items-center">
+<img alt="星辰光辉超值大盒" class="w-full max-w-[280px] object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLU5I97gJuW3EqwDcx90CLbBJuBKMFC6PrLm06XRyBaV2RyjnZysqHrvALdA9Ayl4e3JtdTqVWHAB8bJ1gBmZ_-TdHj5OjpPTaSAyyomGXHs-gGrQgPGiX2YSN3D_ctgclkevIb5nuWUkulB4fbPcmDoWr0FY88F7aYdzwrVO0PCtoIP8bCnPNeWsSS772Qj1wrIQ02VGrEgOrDhNWyg6A1WWuVH1hdd5Aw-l3LS7SaWtZg3FGjR0k">
+</div>
+<div class="bg-black/5 backdrop-blur-sm rounded-2xl p-5 border border-white/50">
+<div class="inline-flex items-center gap-1.5 bg-[#d4af37] text-white text-[11px] font-bold px-2.5 py-1 rounded-sm mb-3">
+<i class="fa-solid fa-fire"></i> 热门必抢
+                </div>
+<h3 class="text-2xl font-bold text-gray-900 mb-1">星辰光辉超值大盒</h3>
+<p class="text-sm text-gray-500 mb-6">内含 5 张保底 UR 级卡牌</p>
+<div class="flex items-center justify-between">
+<div>
+<p class="text-xs text-gray-500 mb-0.5">购买价格</p>
+<p class="text-2xl font-bold text-[#d4af37]">5,500 OKC</p>
+</div>
+<button class="bg-[#786a34] hover:bg-[#63572a] text-white font-medium px-6 py-2.5 rounded-xl transition-colors shadow-md">
+                    立即开启
+                  </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Grid -->
+<div class="w-full lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Item 1 -->
+<div class="bg-white rounded-2xl border border-gray-100 p-4 flex flex-col hover-scale cursor-pointer relative overflow-hidden">
+<div class="absolute top-0 right-0 bg-gray-900 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg z-10">
+                TRENDING #1
+              </div>
+<div class="bg-gray-50 rounded-xl h-40 mb-4 p-4 flex items-center justify-center">
+<img alt="和之国巅峰对决" class="h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWDkcDGZFoyMWccgJeca2OvaL49kK3hM8WrA7PCb8R0_KeXS0paJG_YpMCvHeOMygx1Myuepir137jRRnjkCRx9BxjSDrogkSLLRYMAuTpu5QVaDlAosXZ59pwEvCdqKLHD8XIr2v9WWys-idMJ2DYVGJlbQZ5uDjzdqC8p9Wp4CvMV_btRNa8xTMbIDQfeq0WyP6z6vFoSgKbqgl0woRqxr8Z48lIb8lV0ycby7OwPORSGy5mAOwu">
+</div>
+<div class="flex items-center justify-between mt-auto">
+<div>
+<h4 class="font-bold text-gray-900 mb-1">和之国巅峰对决</h4>
+<p class="font-bold text-[#d4af37] text-lg">2,500 OKC</p>
+</div>
+<div class="flex items-center gap-1 text-[11px] text-[#d4af37] bg-[#d4af37]/10 px-2 py-1 rounded-sm font-medium">
+<i class="fa-solid fa-fire"></i> 火爆进行中
+                </div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-white rounded-2xl border border-gray-100 p-4 flex flex-col hover-scale cursor-pointer">
+<div class="bg-gray-50 rounded-xl h-40 mb-4 p-4 flex items-center justify-center">
+<img alt="木叶忍者启动包" class="h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDydwviHxYiELVXkR-c0Fm5-dAwCn8so0vwzJrqUR5Mu_4TV6OCBamWW9L6ObuFUIEJ8FBl0LaANOc033i-tY7YsTBenD9itqIeZ8rBDSh_txvs4smB2U-mK3V4oa-MpiP6QdZrNHNFt7YrjmruqQ3ooYvtuBHhGQaT9osfx3ymMMWyer_EoWfBPHjP6jHdIMZ_Qyw9RZzZD-gWMsOoXlcYj3i8sDWsRdYQeFTRT34cAL984I7FOxL8">
+</div>
+<div class="flex items-center justify-between mt-auto">
+<div>
+<h4 class="font-bold text-gray-900 mb-1">木叶忍者启动包</h4>
+<p class="font-bold text-[#d4af37] text-lg">500 OKC</p>
+</div>
+<div class="flex items-center gap-1 text-[11px] text-gray-400 font-medium">
+<i class="fa-solid fa-chart-simple text-[#d4af37]"></i> #4
+                </div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-white rounded-2xl border border-gray-100 p-4 flex flex-col hover-scale cursor-pointer">
+<div class="bg-gray-50 rounded-xl h-40 mb-4 p-4 flex items-center justify-center">
+<img alt="雷霆一击高级包" class="h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOqC2gcSC5PiPoTFlobOT-_cisqE5a72ugPzr0rYw_hYijwnh2cmiUhaHWTBFo9VtuwvGiDL9GfN3a2leLDuG5vL83loqfiSYd4XfECQYvR6OaFsjiNTLyMAfS6kV-zM15_dW44nzfYoVdUagrKrDQGaL7sSQuh6R53WDwJ8ob1aFkmrq-daxofFwS7bdk0bFK7LSFnfD_kxpFAiHrL8EE7sZ7xKzTaFKsOScg2wovqbZRx_HXUead">
+</div>
+<div class="flex items-center justify-between mt-auto">
+<div>
+<h4 class="font-bold text-gray-900 mb-1">雷霆一击高级包</h4>
+<p class="font-bold text-[#d4af37] text-lg">3,000 OKC</p>
+</div>
+<div class="flex items-center gap-1 text-[11px] text-gray-400 font-medium">
+<i class="fa-solid fa-chart-simple text-[#d4af37]"></i> #2
+                </div>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="bg-white rounded-2xl border border-gray-100 p-4 flex flex-col hover-scale cursor-pointer">
+<div class="bg-gray-50 rounded-xl h-40 mb-4 p-4 flex items-center justify-center">
+<img alt="皇室宫廷收藏盒" class="h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCts9OqJn82mjxx3H1XYB_jfcJrva3owPotlVDcEA-6bXbQ-2Hb-BF3D0SHd40Ik6GIvccA1Zdjd0l5oNLKA1LKC65tlJO74LM53JAYi4S2DtdvsGw3HMkJo891hY4rMLfDGnoVdehDhaTpoZ5WJfnIB-2Q0T7ppfLULtD8H10w4k2RdEFjiZJFlztqQeRO8_sSul1303Dq2HasweZG6y6xfzRB1h-p3OgA18XJ60LLADQ_CUw0MD-f">
+</div>
+<div class="flex items-center justify-between mt-auto">
+<div>
+<h4 class="font-bold text-gray-900 mb-1">皇室宫廷收藏盒</h4>
+<p class="font-bold text-[#d4af37] text-lg">1,800 OKC</p>
+</div>
+<div class="flex items-center gap-1 text-[11px] text-gray-400 font-medium">
+<i class="fa-solid fa-chart-simple text-[#d4af37]"></i> #8
+                </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- FAQ Section -->
+<section class="bg-gray-50 py-24">
+<div class="max-w-[1000px] mx-auto px-6 text-center">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">常见问题解答</h2>
+<p class="text-gray-500 mb-12">关于收藏、开盒及 OK Card Empire 积分赚取的一切疑问，都能在这里找到答案。</p>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left mb-10">
+<!-- FAQ Item 1 -->
+<div class="bg-white p-6 rounded-2xl border border-gray-100">
+<div class="w-10 h-10 rounded-full bg-[#d4af37]/10 flex items-center justify-center text-[#d4af37] mb-4 text-xl">
+<i class="fa-solid fa-shield-check"></i>
+</div>
+<h3 class="font-bold text-gray-900 mb-2">正品保障</h3>
+<p class="text-sm text-gray-500 leading-relaxed">我们所有的盲盒均包含官方授权的交易卡牌，直接采购自全球认证分销商。</p>
+</div>
+<!-- FAQ Item 2 -->
+<div class="bg-white p-6 rounded-2xl border border-gray-100">
+<div class="w-10 h-10 rounded-full bg-[#d4af37]/10 flex items-center justify-center text-[#d4af37] mb-4 text-xl">
+<i class="fa-solid fa-coins"></i>
+</div>
+<h3 class="font-bold text-gray-900 mb-2">如何赚取 OK 积分？</h3>
+<p class="text-sm text-gray-500 leading-relaxed">通过每日签到、完成特殊任务以及将不需要的卡牌回收进系统来赚取积分。</p>
+</div>
+<!-- FAQ Item 3 -->
+<div class="bg-white p-6 rounded-2xl border border-gray-100">
+<div class="w-10 h-10 rounded-full bg-[#d4af37]/10 flex items-center justify-center text-[#d4af37] mb-4 text-xl">
+<i class="fa-solid fa-truck-fast"></i>
+</div>
+<h3 class="font-bold text-gray-900 mb-2">实体配送</h3>
+<p class="text-sm text-gray-500 leading-relaxed">您可以随时选择提取实体卡牌。我们提供国际快递服务，并采用专业保护包装。</p>
+</div>
+<!-- FAQ Item 4 -->
+<div class="bg-white p-6 rounded-2xl border border-gray-100">
+<div class="w-10 h-10 rounded-full bg-[#d4af37]/10 flex items-center justify-center text-[#d4af37] mb-4 text-xl">
+<i class="fa-solid fa-box-open"></i>
+</div>
+<h3 class="font-bold text-gray-900 mb-2">开盒概率</h3>
+<p class="text-sm text-gray-500 leading-relaxed">每个盒子的列表都包含详细的透明度报告，展示该系列中每个稀有度等级的准确概率。</p>
+</div>
+<!-- FAQ Item 5 -->
+<div class="bg-white p-6 rounded-2xl border border-gray-100">
+<div class="w-10 h-10 rounded-full bg-[#d4af37]/10 flex items-center justify-center text-[#d4af37] mb-4 text-xl">
+<i class="fa-solid fa-users"></i>
+</div>
+<h3 class="font-bold text-gray-900 mb-2">VIP 会员计划</h3>
+<p class="text-sm text-gray-500 leading-relaxed">加入我们的精英计划，获得限量发售的提前购买权、更低的手续费以及专属季卡礼盒。</p>
+</div>
+<!-- FAQ Item 6 -->
+<div class="bg-white p-6 rounded-2xl border border-gray-100">
+<div class="w-10 h-10 rounded-full bg-[#d4af37]/10 flex items-center justify-center text-[#d4af37] mb-4 text-xl">
+<i class="fa-solid fa-circle-question"></i>
+</div>
+<h3 class="font-bold text-gray-900 mb-2">需要帮助？</h3>
+<p class="text-sm text-gray-500 leading-relaxed">我们的支持团队 24/7 全天候为您服务，协助解决技术问题、订单跟踪或一般平台咨询。</p>
+</div>
+</div>
+<button class="border-2 border-[#d4af37] text-[#8b7324] font-medium py-2.5 px-8 rounded-full hover:bg-[#d4af37]/5 transition-colors">
+          访问帮助中心
+        </button>
+</div>
+</section>
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: Footer -->
+<footer class="bg-white border-t border-gray-100 pt-16 pb-8">
+<div class="max-w-[1440px] mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+<!-- Brand Info -->
+<div class="col-span-1 md:col-span-1">
+<a class="flex items-center gap-2 mb-4" href="#">
+<div class="w-6 h-6 bg-[#d4af37] rounded flex items-center justify-center text-white font-bold text-xs">
+<i class="fa-solid fa-cube"></i>
+</div>
+<span class="font-bold text-lg tracking-tight">OK Card Empire</span>
+</a>
+<p class="text-sm text-gray-500 leading-relaxed mb-6 pr-4">
+            提升您的收藏品质，统治您的卡牌帝国。顶级交易卡牌收藏家的终极目的地。
+          </p>
+<div class="flex items-center gap-3">
+<a class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors" href="#"><i class="fa-solid fa-earth-americas text-xs"></i></a>
+<a class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors" href="#"><i class="fa-brands fa-discord text-xs"></i></a>
+<a class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors" href="#"><i class="fa-brands fa-twitter text-xs"></i></a>
+</div>
+</div>
+<!-- Links Column 1 -->
+<div>
+<h4 class="font-bold text-gray-900 mb-4 text-sm">关于我们</h4>
+<ul class="space-y-3 text-sm text-gray-500">
+<li class=""><a class="hover:text-black transition-colors" href="#">品牌故事</a></li>
+<li class=""><a class="hover:text-black transition-colors" href="#">正品认证</a></li>
+<li class=""><a class="hover:text-black transition-colors" href="#">卡牌回收计划</a></li>
+<li class=""><a class="hover:text-black transition-colors" href="#">加入我们</a></li>
+</ul>
+</div>
+<!-- Links Column 2 -->
+<div>
+<h4 class="font-bold text-gray-900 mb-4 text-sm">帮助支持</h4>
+<ul class="space-y-3 text-sm text-gray-500">
+<li class=""><a class="hover:text-black transition-colors" href="#">常见问题</a></li>
+<li class=""><a class="hover:text-black transition-colors" href="#">配送说明</a></li>
+<li class=""><a class="hover:text-black transition-colors" href="#">退换货政策</a></li>
+<li class=""><a class="hover:text-black transition-colors" href="#">联系客服</a></li>
+</ul>
+</div>
+<!-- Links Column 3 -->
+<div>
+<h4 class="font-bold text-gray-900 mb-4 text-sm">法律条款</h4>
+<ul class="space-y-3 text-sm text-gray-500">
+<li class=""><a class="hover:text-black transition-colors" href="#">服务条款</a></li>
+<li class=""><a class="hover:text-black transition-colors" href="#">隐私政策</a></li>
+<li class=""><a class="hover:text-black transition-colors" href="#">用户协议</a></li>
+<li class=""><a class="hover:text-black transition-colors" href="#">合规性</a></li>
+</ul>
+</div>
+</div>
+<!-- Bottom Bar -->
+<div class="border-t border-gray-100 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="text-sm text-gray-400 flex items-center gap-2">
+          © 2024 OK Card Empire. 
+          <div class="flex gap-0.5">
+<span class="w-1 h-3 bg-gray-300 inline-block"></span>
+<span class="w-1 h-3 bg-gray-300 inline-block"></span>
+<span class="w-1 h-3 bg-gray-300 inline-block"></span>
+<span class="w-1 h-3 bg-gray-300 inline-block"></span>
+</div>
+</div>
+<div class="flex items-center gap-4 text-gray-400">
+<div class="flex items-center gap-2 text-lg">
+<i class="fa-brands fa-cc-visa hover:text-gray-600 transition-colors cursor-pointer"></i>
+<i class="fa-brands fa-cc-mastercard hover:text-gray-600 transition-colors cursor-pointer"></i>
+<i class="fa-brands fa-bitcoin hover:text-gray-600 transition-colors cursor-pointer"></i>
+</div>
+<span class="text-xs border-l border-gray-200 pl-4">支持超过 20 种支付方式</span>
+</div>
+</div>
+</div>
+</footer>
+<!-- END: Footer -->
+
+
+</body></html>
