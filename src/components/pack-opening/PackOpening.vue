@@ -122,8 +122,6 @@ onBeforeUnmount(() => { document.body.style.overflow = previousOverflow; media?.
         </div>
         <button v-if="['choose','shuffle'].includes(stage)" class="text-button choose-current" :disabled="!ready || failed || stage==='shuffle'" @click="choose(active)">选择当前卡包 ↗</button>
         <p v-else-if="stage==='tear'" class="gesture-hint">鼠标或手指从左向右划开 · 键盘可连续按 →</p>
-        <div class="ritual-steps"><span :class="{current:stepIndex===0,done:stepIndex>0}">01 洗牌选包</span><i/><span :class="{current:stepIndex===1,done:stepIndex>1}">02 划开封口</span><i/><span :class="{current:stepIndex===2}">03 开包揭晓</span></div>
-        <p class="opening-caption">{{ preview ? 'OK PACK · 每一份收藏，都值得期待' : '选包和动画仅影响展示，不改变抽取概率与结果' }}</p>
       </footer>
     </section>
   </Teleport>
