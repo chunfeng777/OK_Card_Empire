@@ -22,6 +22,7 @@ const sealStyle = computed(() => ({ left: `${seal.value.left}px`, top: `${seal.v
 let dragging = false, pointerId = -1, start = 0, farthest = 0
 let previousOverflow = '', previousFocus: HTMLElement | null = null
 let media: MediaQueryList
+let preloadVideo: HTMLVideoElement | undefined
 function shuffle() { if (!ready.value || stage.value !== 'choose') return; stage.value = 'shuffle' }
 function choose(id: number) {
   if (!ready.value || failed.value || stage.value !== 'choose') return
@@ -84,8 +85,15 @@ onMounted(() => {
   previousOverflow = document.body.style.overflow; document.body.style.overflow = 'hidden'
   previousFocus = document.activeElement as HTMLElement; panel.value?.focus()
   media = matchMedia('(prefers-reduced-motion: reduce)'); mediaChange(); media.addEventListener('change', mediaChange)
+  if (props.videoSrc) {
+    preloadVideo = document.createElement('video')
+    preloadVideo.preload = 'auto'
+    preloadVideo.playsInline = true
+    preloadVideo.src = props.videoSrc
+    preloadVideo.load()
+  }
 })
-onBeforeUnmount(() => { document.body.style.overflow = previousOverflow; media?.removeEventListener('change', mediaChange); previousFocus?.focus() })
+onBeforeUnmount(() => { document.body.style.overflow = previousOverflow; media?.removeEventListener('change', mediaChange); if (preloadVideo) { preloadVideo.removeAttribute('src'); preloadVideo.load() }; previousFocus?.focus() })
 </script>
 
 <template>

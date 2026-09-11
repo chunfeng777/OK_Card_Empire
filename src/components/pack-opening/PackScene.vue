@@ -43,7 +43,7 @@ function cropTexture(source: THREE.Texture, min: number, max: number) {
   textures.push(texture)
   return texture
 }
-function makePack(texture: THREE.Texture, id: number) {
+function makePack(texture: THREE.Texture, bodyMap: THREE.Texture, topMap: THREE.Texture, id: number) {
   const group = new THREE.Group()
   group.userData.id = id
   const foil = new THREE.MeshStandardMaterial({ color: 0xc3a15e, metalness: .85, roughness: .3 })
@@ -51,7 +51,6 @@ function makePack(texture: THREE.Texture, id: number) {
   const base = new THREE.Mesh(new THREE.BoxGeometry(packWidth, bodyHeight, .035), foil)
   base.position.y = -packHeight / 2 + bodyHeight / 2
   group.add(base)
-  const bodyMap = cropTexture(texture, 0, bodyHeight / packHeight)
   const bodyGeometry = new THREE.PlaneGeometry(packWidth, bodyHeight, 48, 1); waveEdge(bodyGeometry, 'top')
   const body = new THREE.Mesh(bodyGeometry, new THREE.MeshBasicMaterial({ map: bodyMap }))
   body.position.set(0, base.position.y, .024)
@@ -67,7 +66,6 @@ function makePack(texture: THREE.Texture, id: number) {
   const top = new THREE.Mesh(new THREE.BoxGeometry(packWidth, stripHeight, .037, 48, 1, 1), foil)
   top.position.set(packWidth / 2, stripHeight / 2, 0)
   strip.add(top)
-  const topMap = cropTexture(texture, bodyHeight / packHeight, 1)
   const topFaceGeometry = new THREE.PlaneGeometry(packWidth, stripHeight, 48, 1); waveEdge(topFaceGeometry, 'bottom')
   const topFace = new THREE.Mesh(topFaceGeometry, new THREE.MeshBasicMaterial({ map: topMap, side: THREE.DoubleSide }))
   topFace.position.set(packWidth / 2, stripHeight / 2, .025)
@@ -220,7 +218,7 @@ onMounted(() => {
     camera = new THREE.PerspectiveCamera(38, 1, .1, 60)
     camera.position.set(0, .05, 9); camera.lookAt(0, -.05, 0)
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     renderer.outputColorSpace = THREE.SRGBColorSpace
     host.value!.appendChild(renderer.domElement)
     renderer.domElement.setAttribute('aria-label', '可左右拖动的立体卡包轮盘')
@@ -243,7 +241,10 @@ onMounted(() => {
       if (disposed) { texture.dispose(); return }
       texture.colorSpace = THREE.SRGBColorSpace; texture.anisotropy = renderer.capabilities.getMaxAnisotropy()
       textures.push(texture)
-      for (let i = 0; i < count; i++) makePack(texture, i)
+      const bodyHeight = seam + packHeight / 2
+      const bodyMap = cropTexture(texture, 0, bodyHeight / packHeight)
+      const topMap = cropTexture(texture, bodyHeight / packHeight, 1)
+      for (let i = 0; i < count; i++) makePack(texture, bodyMap, topMap, i)
       loaded = true; placeRing(); emit('ready')
     }, undefined, () => { if (!disposed) emit('error') })
     frame = requestAnimationFrame(tick)

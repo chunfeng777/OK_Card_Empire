@@ -1,19 +1,40 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, ref, watch } from 'vue'
+import { computed, defineAsyncComponent, onMounted, ref, watch } from 'vue'
 import { cards, type BlindBox } from '../data'
 import { useAppStore } from '../stores/app'
-import { PACK_VIDEO } from './pack-opening/types'
-const PackOpening = defineAsyncComponent(() => import('./pack-opening/PackOpening.vue'))
+import { PACK_COVER, PACK_VIDEO } from './pack-opening/types'
+let packOpeningPromise: Promise<typeof import('./pack-opening/PackOpening.vue')> | undefined
+const loadPackOpening = () => packOpeningPromise ??= import('./pack-opening/PackOpening.vue')
+const PackOpening = defineAsyncComponent(loadPackOpening)
 const p = defineProps<{ box: BlindBox | null; count: number }>()
 const emit = defineEmits(['close'])
 const store = useAppStore(), stage = ref<'confirm' | 'opening'>('confirm')
 const cost = computed(() => p.box ? p.box.price * p.count : 0)
 const openingVideo = import.meta.env.VITE_PACK_OPENING_VIDEO_URL || PACK_VIDEO
+let videoPreload: HTMLVideoElement | undefined
 const results = computed(() => Array.from({ length: p.count }, (_, index) => {
   const card = cards[index % cards.length]
   return { name: card.name, rarity: card.tag.includes('PSA') ? card.tag : 'RARE', coin: card.coin, image: card.image }
 }))
-watch(() => p.box, () => { stage.value = 'confirm' })
+function warmOpening() {
+  void loadPackOpening()
+  const cover = new Image()
+  cover.decoding = 'async'
+  cover.src = PACK_COVER
+  void cover.decode().catch(() => undefined)
+  if (!videoPreload) {
+    videoPreload = document.createElement('video')
+    videoPreload.preload = 'auto'
+    videoPreload.playsInline = true
+    videoPreload.src = openingVideo
+    videoPreload.load()
+  }
+}
+watch(() => p.box, box => {
+  stage.value = 'confirm'
+  if (box) warmOpening()
+})
+onMounted(warmOpening)
 function buy() {
   if (stage.value !== 'confirm' || !p.box) return
   if (!store.spend(cost.value)) { store.toast('余额不足，请先充值'); return }
