@@ -24,5 +24,5 @@ const router=createRouter({history:createWebHistory(),scrollBehavior:()=>({top:0
  {path:'/:page(faq|contact|recharge|login|register|forgot-password|reset-password|account-activation)',component:SimplePages},
  {path:'/:pathMatch(.*)*',redirect:'/'}
 ]})
-router.afterEach(to=>{document.title=`${String(to.meta.title||'OK Card Empire')} · OK Card Empire`;let tag=document.querySelector('meta[name="robots"]');if(!tag){tag=document.createElement('meta');tag.setAttribute('name','robots');document.head.appendChild(tag)}tag.setAttribute('content',to.meta.noindex?'noindex,nofollow':'index,follow')})
+router.afterEach(to=>{document.title=`${String(to.meta.title||'OK Kard Empire')} · OK Kard Empire`;let tag=document.querySelector('meta[name="robots"]');if(!tag){tag=document.createElement('meta');tag.setAttribute('name','robots');document.head.appendChild(tag)}tag.setAttribute('content',to.meta.noindex?'noindex,nofollow':'index,follow')})
 export default router
