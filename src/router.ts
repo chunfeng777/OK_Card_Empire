@@ -10,6 +10,7 @@ import SettingsPage from './pages/SettingsPage.vue'
 import SimplePages from './pages/SimplePages.vue'
 
 const router=createRouter({history:createWebHistory(),scrollBehavior:()=>({top:0}),routes:[
+ {path:'/pack-opening',component:()=>import('./pages/PackOpeningPreview.vue'),meta:{title:'开包动画预览',noindex:true}},
  {path:'/',component:HomePage,meta:{title:'首页'}},
  {path:'/blind-boxes',component:BlindBoxesPage,meta:{title:'盲盒专区'}},
  {path:'/blind-boxes/:slug',component:BlindBoxDetailPage,meta:{title:'盲盒详情'}},
