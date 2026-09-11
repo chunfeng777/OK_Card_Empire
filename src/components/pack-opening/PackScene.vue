@@ -22,6 +22,20 @@ const raycaster = new THREE.Raycaster(), pointer = new THREE.Vector2()
 let glow: THREE.Mesh, particles: THREE.Points
 const ease = (t: number) => 1 - Math.pow(1 - Math.min(1, Math.max(0, t)), 3)
 const step = Math.PI * 2 / count
+const tornWave = (u: number) => .025 * Math.sin(u * Math.PI * 7) + .014 * Math.sin(u * Math.PI * 19 + .7)
+
+function waveEdge(geometry: THREE.BufferGeometry, edge: 'top' | 'bottom') {
+  const positions = geometry.attributes.position as THREE.BufferAttribute
+  let edgeY = edge === 'top' ? -Infinity : Infinity
+  for (let i = 0; i < positions.count; i++) edgeY = edge === 'top' ? Math.max(edgeY, positions.getY(i)) : Math.min(edgeY, positions.getY(i))
+  for (let i = 0; i < positions.count; i++) {
+    if (Math.abs(positions.getY(i) - edgeY) < .001) {
+      const u = (positions.getX(i) + packWidth / 2) / packWidth
+      positions.setY(i, positions.getY(i) + tornWave(u))
+    }
+  }
+  positions.needsUpdate = true
+}
 
 function cropTexture(source: THREE.Texture, min: number, max: number) {
   const texture = source.clone()
@@ -38,11 +52,13 @@ function makePack(texture: THREE.Texture, id: number) {
   base.position.y = -packHeight / 2 + bodyHeight / 2
   group.add(base)
   const bodyMap = cropTexture(texture, 0, bodyHeight / packHeight)
-  const body = new THREE.Mesh(new THREE.PlaneGeometry(packWidth, bodyHeight), new THREE.MeshBasicMaterial({ map: bodyMap }))
+  const bodyGeometry = new THREE.PlaneGeometry(packWidth, bodyHeight, 48, 1); waveEdge(bodyGeometry, 'top')
+  const body = new THREE.Mesh(bodyGeometry, new THREE.MeshBasicMaterial({ map: bodyMap }))
   body.position.set(0, base.position.y, .024)
   body.userData.id = id
   group.add(body); faces.push(body)
-  const back = new THREE.Mesh(new THREE.PlaneGeometry(packWidth, bodyHeight), new THREE.MeshBasicMaterial({ map: bodyMap }))
+  const backGeometry = new THREE.PlaneGeometry(packWidth, bodyHeight, 48, 1); waveEdge(backGeometry, 'top')
+  const back = new THREE.Mesh(backGeometry, new THREE.MeshBasicMaterial({ map: bodyMap }))
   back.rotation.y = Math.PI; back.position.set(0, base.position.y, -.025)
   back.userData.id = id; group.add(back); faces.push(back)
   const strip = new THREE.Group()
@@ -52,11 +68,13 @@ function makePack(texture: THREE.Texture, id: number) {
   top.position.set(packWidth / 2, stripHeight / 2, 0)
   strip.add(top)
   const topMap = cropTexture(texture, bodyHeight / packHeight, 1)
-  const topFace = new THREE.Mesh(new THREE.PlaneGeometry(packWidth, stripHeight, 48, 1), new THREE.MeshBasicMaterial({ map: topMap, side: THREE.DoubleSide }))
+  const topFaceGeometry = new THREE.PlaneGeometry(packWidth, stripHeight, 48, 1); waveEdge(topFaceGeometry, 'bottom')
+  const topFace = new THREE.Mesh(topFaceGeometry, new THREE.MeshBasicMaterial({ map: topMap, side: THREE.DoubleSide }))
   topFace.position.set(packWidth / 2, stripHeight / 2, .025)
   topFace.userData.id = id
   strip.add(topFace); faces.push(topFace); group.add(strip)
   const topBackGeometry = new THREE.PlaneGeometry(packWidth, stripHeight, 48, 1)
+  waveEdge(topBackGeometry, 'bottom')
   topBackGeometry.rotateY(Math.PI)
   const topBack = new THREE.Mesh(topBackGeometry, new THREE.MeshBasicMaterial({ map: topMap, side: THREE.DoubleSide }))
   topBack.position.set(packWidth / 2, stripHeight / 2, -.025)

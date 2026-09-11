@@ -2,10 +2,12 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import PackScene from './PackScene.vue'
 import OpeningVideo from './OpeningVideo.vue'
-import { PACK_COVER, PACK_VIDEO, type OpeningStage, type SealBounds } from './types'
+import ResultReveal from './ResultReveal.vue'
+import { PACK_COVER, PACK_VIDEO, type OpeningResult, type OpeningStage, type SealBounds } from './types'
 
-const props = withDefaults(defineProps<{ title?: string; count?: number; cover?: string; videoSrc?: string; reducedMotion?: boolean; preview?: boolean }>(), {
+const props = withDefaults(defineProps<{ title?: string; count?: number; cover?: string; videoSrc?: string; reducedMotion?: boolean; preview?: boolean; results?: OpeningResult[] }>(), {
   title: 'OK PACK', count: 1, cover: PACK_COVER, videoSrc: PACK_VIDEO, reducedMotion: false, preview: false,
+  results: () => [{ name: '皮卡丘 VMAX', rarity: 'RARE', coin: 2000, image: '/images/pokemon/pikachu.png' }],
 })
 const emit = defineEmits<{ close: []; complete: []; opened: [selection: { packIndex: number; count: number }] }>()
 const stage = ref<OpeningStage>('choose'), ready = ref(false), failed = ref(false), shuffled = ref(false)
@@ -60,6 +62,7 @@ function opened() {
   emit('opened', { packIndex: selected.value, count: props.count })
   stage.value = props.videoSrc ? 'video' : 'handoff'
 }
+function resultAgain() { if (props.preview) reset(); else emit('complete') }
 function reset() {
   stage.value = 'choose'; shuffled.value = ready.value = failed.value = false
   progress.value = 0; selected.value = active.value = 0; sceneKey.value++
@@ -104,12 +107,13 @@ onBeforeUnmount(() => { document.body.style.overflow = previousOverflow; media?.
         <div v-if="!ready && !failed" class="scene-status"><i class="loading-ring"/>正在准备卡包…</div>
         <div v-if="failed" class="scene-status"><p>暂时无法加载 3D 卡包，请确认浏览器已开启硬件加速。</p><button class="gold-button" @click="reset">重新加载</button><button class="text-button" @click="emit('close')">返回</button></div>
         <button v-if="stage==='tear' && seal.width" ref="sealButton" class="tear-seal" :class="{cutting:progress>0,'reduce-motion':motion}" :style="sealStyle" aria-label="从左向右划开封口，或连续按右方向键" @pointerdown="startCut" @pointermove="moveCut" @pointerup="stopCut" @pointercancel="stopCut" @keydown="keyboardCut">
-          <span class="seal-line"/><span class="seal-progress" :style="{width:`${progress*100}%`}"/>
+          <svg class="seal-line" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true"><path d="M0 7 C4 2 8 12 13 6 S22 3 27 8 S36 11 41 5 S50 1 55 7 S64 13 69 6 S78 2 83 8 S92 11 100 5"/></svg>
+          <span class="seal-progress" :style="{width:`${progress*100}%`}"><svg viewBox="0 0 100 14" preserveAspectRatio="none"><path d="M0 7 C4 2 8 12 13 6 S22 3 27 8 S36 11 41 5 S50 1 55 7 S64 13 69 6 S78 2 83 8 S92 11 100 5"/></svg></span>
         </button>
         <div v-if="stage==='choose' && ready" class="pack-index">PACK <b>{{ String(active+1).padStart(2,'0') }}</b><span>/ 10</span></div>
       </div>
-      <OpeningVideo v-else-if="stage==='video'" :src="videoSrc" @complete="preview ? stage='handoff' : emit('complete')"/>
-      <div v-else class="handoff-panel"><span class="handoff-icon">✓</span><h2>卡包已开启</h2><p>{{ videoSrc ? '本次开包体验已结束。' : '你的卡包已经准备好，等待揭晓。' }}</p><button class="gold-button" @click="preview?reset():emit('complete')">{{ preview?'再体验一次':'查看抽取结果' }}</button></div>
+      <OpeningVideo v-else-if="stage==='video'" :src="videoSrc" @complete="stage='handoff'"/>
+      <ResultReveal v-else :results="results" :preview="preview" @again="resultAgain" @close="emit('close')"/>
       <footer class="experience-footer">
         <div v-if="['choose','shuffle'].includes(stage)" class="wheel-controls">
           <button class="round-button" aria-label="向左旋转卡包" :disabled="!ready || stage==='shuffle' || failed" @click="scene?.navigate(1)">‹</button>
@@ -139,7 +143,8 @@ onBeforeUnmount(() => { document.body.style.overflow = previousOverflow; media?.
 .tear-seal.cutting .seal-line{opacity:.18;animation:none;transform:none}
 .tear-seal.reduce-motion .seal-line{animation:none;transform:none}
 @keyframes seal-sweep{0%,10%{transform:scaleX(0);opacity:0}18%{opacity:1}78%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
-.pack-experience[data-stage="video"] .experience-header,.pack-experience[data-stage="video"] .experience-footer{display:none}
-.pack-experience[data-stage="video"] .experience-intro{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%)}
+.pack-experience[data-stage="video"] .experience-intro{padding-top:0}.pack-experience[data-stage="video"] .experience-intro h1{font-size:18px;margin:2px 0 5px}.pack-experience[data-stage="video"] .experience-intro .chapter{display:none}.pack-experience[data-stage="video"] .experience-footer{padding-block:8px}.pack-experience[data-stage="video"] .ritual-steps{margin-top:0}.pack-experience[data-stage="video"] .opening-caption{display:none}
+.pack-experience[data-stage="handoff"] .experience-header,.pack-experience[data-stage="handoff"] .experience-intro,.pack-experience[data-stage="handoff"] .experience-footer{display:none}
 @media(prefers-reduced-motion:reduce){.loading-ring{animation:none}}
+.tear-seal>.seal-line{position:absolute;left:0;top:17px;width:100%;height:14px;overflow:visible;background:none;border:0;box-shadow:none;filter:none;transform-origin:left;animation:wave-sweep 1.65s ease-in-out infinite}.tear-seal path{fill:none;stroke:#fff;stroke-width:1.15;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 3px #fff)}.tear-seal>.seal-progress{position:absolute;left:0;top:17px;height:14px;overflow:hidden;background:none;box-shadow:none}.tear-seal>.seal-progress svg{display:block;width:100%;height:14px;overflow:visible}.tear-seal>.seal-progress path{stroke:#f6d690;stroke-width:2}.tear-seal.cutting>.seal-line{opacity:.14;animation:none;transform:none}.tear-seal.reduce-motion>.seal-line{animation:none;transform:none}@keyframes wave-sweep{0%,10%{clip-path:inset(0 100% 0 0);opacity:0}18%{opacity:1}78%{clip-path:inset(0 0 0 0);opacity:1}100%{clip-path:inset(0 0 0 0);opacity:0}}.pack-experience[data-stage="tear"] .experience-intro,.pack-experience[data-stage="tear"] .experience-footer,.pack-experience[data-stage="opening"] .experience-intro,.pack-experience[data-stage="opening"] .experience-footer,.pack-experience[data-stage="video"] .experience-intro,.pack-experience[data-stage="video"] .experience-footer{display:none}
 </style>
