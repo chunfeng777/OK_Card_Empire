@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import PackScene from './PackScene.vue'
 import OpeningVideo from './OpeningVideo.vue'
 import ResultReveal from './ResultReveal.vue'
@@ -10,13 +11,18 @@ const props = withDefaults(defineProps<{ title?: string; count?: number; cover?:
   results: () => [{ name: '皮卡丘 VMAX', rarity: 'RARE', coin: 2000, image: '/images/pokemon/pikachu.png' }],
 })
 const emit = defineEmits<{ close: []; complete: []; opened: [selection: { packIndex: number; count: number }] }>()
+const { t } = useI18n()
 const stage = ref<OpeningStage>('choose'), ready = ref(false), failed = ref(false), shuffled = ref(false)
 const selected = ref(0), active = ref(0), progress = ref(0), sceneKey = ref(0)
 const scene = ref<InstanceType<typeof PackScene>>(), panel = ref<HTMLElement>(), sealButton = ref<HTMLButtonElement>()
 const seal = ref<SealBounds>({ left: 0, top: 0, width: 0 }), systemReduced = ref(false)
 const motion = computed(() => props.reducedMotion || systemReduced.value)
-const heading = computed(() => ({ choose: shuffled.value ? '直觉，会带你找到它' : '你的下一份惊喜，藏在这里', shuffle: '让好运重新排列', focus: '就是这一包', tear: '亲手，开启这一刻', opening: '封口已划开', video: '惊喜，即将揭晓', handoff: '卡包已开启' })[stage.value])
-const instruction = computed(() => ({ choose: '左右拖动轮盘，直接点选卡包，也可以先洗牌', shuffle: '正在洗牌，请稍候…', focus: '正在将你选择的卡包移到面前', tear: '按住白线左端，向右划开卡包', opening: '正在打开你选择的卡包…', video: '正在播放开包动画', handoff: '前段开包体验已完成' })[stage.value])
+const displayResults = computed(() => props.results.map(result => ({
+  ...result,
+  name: result.name === '皮卡丘 VMAX' || result.name === 'Pikachu VMAX' ? t('cards.pikachu.name') : result.name,
+})))
+const heading = computed(() => t(`opening.headings.${stage.value === 'choose' && shuffled.value ? 'shuffled' : stage.value}`))
+const instruction = computed(() => t(`opening.instructions.${stage.value}`))
 const stepIndex = computed(() => ['choose', 'shuffle'].includes(stage.value) ? 0 : ['focus', 'tear'].includes(stage.value) ? 1 : 2)
 const sealStyle = computed(() => ({ left: `${seal.value.left}px`, top: `${seal.value.top - 24}px`, width: `${seal.value.width}px` }))
 let dragging = false, pointerId = -1, start = 0, farthest = 0
@@ -100,9 +106,9 @@ onBeforeUnmount(() => { document.body.style.overflow = previousOverflow; media?.
   <Teleport to="body">
     <section ref="panel" class="pack-experience" role="dialog" aria-modal="true" aria-labelledby="pack-heading" tabindex="-1" :data-stage="stage" @keydown="keydown">
       <header class="experience-header">
-        <div class="opening-brand">OK<span> / </span>PACK <small>THE COLLECTOR'S MOMENT</small></div>
-        <div class="edition">{{ title }}<span>{{ preview ? '开包体验' : `${count} 次抽取` }}</span></div>
-        <button class="close-opening" aria-label="关闭开包动画" @click="emit('close')">×</button>
+        <div class="opening-brand">OK<span> / </span>PACK <small>{{ t('eyebrow.collectorMoment') }}</small></div>
+        <div class="edition">{{ title }}<span>{{ preview ? t('opening.experience') : t('opening.draws',{count}) }}</span></div>
+        <button class="close-opening" :aria-label="t('opening.close')" @click="emit('close')">×</button>
       </header>
       <div class="experience-intro" aria-live="polite">
         <span class="chapter">{{ String(stepIndex + 1).padStart(2, '0') }} / THE OPENING RITUAL</span>
@@ -112,24 +118,24 @@ onBeforeUnmount(() => { document.body.style.overflow = previousOverflow; media?.
         <div class="stage-halo"/><div class="stage-floor"/>
         <PackScene v-if="!failed" :key="sceneKey" ref="scene" :stage="stage" :cover="cover" :selected="selected" :can-select="ready" :progress="progress" :reduced-motion="motion"
           @ready="ready=true" @error="failed=true" @active="active=$event" @choose="choose" @seal="seal=$event" @shuffled="shuffled=true;stage='choose'" @focused="focused" @opened="opened"/>
-        <div v-if="!ready && !failed" class="scene-status"><i class="loading-ring"/>正在准备卡包…</div>
-        <div v-if="failed" class="scene-status"><p>暂时无法加载 3D 卡包，请确认浏览器已开启硬件加速。</p><button class="gold-button" @click="reset">重新加载</button><button class="text-button" @click="emit('close')">返回</button></div>
-        <button v-if="stage==='tear' && seal.width" ref="sealButton" class="tear-seal" :class="{cutting:progress>0,'reduce-motion':motion}" :style="sealStyle" aria-label="从左向右划开封口，或连续按右方向键" @pointerdown="startCut" @pointermove="moveCut" @pointerup="stopCut" @pointercancel="stopCut" @keydown="keyboardCut">
+        <div v-if="!ready && !failed" class="scene-status"><i class="loading-ring"/>{{ t('opening.preparing') }}</div>
+        <div v-if="failed" class="scene-status"><p>{{ t('opening.threeError') }}</p><button class="gold-button" @click="reset">{{ t('opening.reload') }}</button><button class="text-button" @click="emit('close')">{{ t('opening.back') }}</button></div>
+        <button v-if="stage==='tear' && seal.width" ref="sealButton" class="tear-seal" :class="{cutting:progress>0,'reduce-motion':motion}" :style="sealStyle" :aria-label="t('opening.tearAria')" @pointerdown="startCut" @pointermove="moveCut" @pointerup="stopCut" @pointercancel="stopCut" @keydown="keyboardCut">
           <svg class="seal-line" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true"><path d="M0 7 C4 2 8 12 13 6 S22 3 27 8 S36 11 41 5 S50 1 55 7 S64 13 69 6 S78 2 83 8 S92 11 100 5"/></svg>
           <span class="seal-progress" :style="{width:`${progress*100}%`}"><svg viewBox="0 0 100 14" preserveAspectRatio="none"><path d="M0 7 C4 2 8 12 13 6 S22 3 27 8 S36 11 41 5 S50 1 55 7 S64 13 69 6 S78 2 83 8 S92 11 100 5"/></svg></span>
         </button>
         <div v-if="stage==='choose' && ready" class="pack-index">PACK <b>{{ String(active+1).padStart(2,'0') }}</b><span>/ 10</span></div>
       </div>
       <OpeningVideo v-else-if="stage==='video'" :src="videoSrc" @complete="stage='handoff'"/>
-      <ResultReveal v-else :results="results" :preview="preview" @again="resultAgain" @close="emit('close')"/>
+      <ResultReveal v-else :results="displayResults" :preview="preview" @again="resultAgain" @close="emit('close')"/>
       <footer class="experience-footer">
         <div v-if="['choose','shuffle'].includes(stage)" class="wheel-controls">
-          <button class="round-button" aria-label="向左旋转卡包" :disabled="!ready || stage==='shuffle' || failed" @click="scene?.navigate(1)">‹</button>
-          <button class="gold-button shuffle-button" :disabled="!ready || stage==='shuffle' || failed" @click="shuffle"><span class="shuffle-symbol">⤨</span>{{ stage==='shuffle'?'洗牌中…':shuffled?'再次洗牌':'洗牌' }}</button>
-          <button class="round-button" aria-label="向右旋转卡包" :disabled="!ready || stage==='shuffle' || failed" @click="scene?.navigate(-1)">›</button>
+          <button class="round-button" :aria-label="t('opening.left')" :disabled="!ready || stage==='shuffle' || failed" @click="scene?.navigate(1)">‹</button>
+          <button class="gold-button shuffle-button" :disabled="!ready || stage==='shuffle' || failed" @click="shuffle"><span class="shuffle-symbol">⤨</span>{{ stage==='shuffle'?t('opening.shuffling'):shuffled?t('opening.shuffleAgain'):t('opening.shuffle') }}</button>
+          <button class="round-button" :aria-label="t('opening.right')" :disabled="!ready || stage==='shuffle' || failed" @click="scene?.navigate(-1)">›</button>
         </div>
-        <button v-if="['choose','shuffle'].includes(stage)" class="text-button choose-current" :disabled="!ready || failed || stage==='shuffle'" @click="choose(active)">选择当前卡包 ↗</button>
-        <p v-else-if="stage==='tear'" class="gesture-hint">鼠标或手指从左向右划开 · 键盘可连续按 →</p>
+        <button v-if="['choose','shuffle'].includes(stage)" class="text-button choose-current" :disabled="!ready || failed || stage==='shuffle'" @click="choose(active)">{{ t('opening.choose') }}</button>
+        <p v-else-if="stage==='tear'" class="gesture-hint">{{ t('opening.gesture') }}</p>
       </footer>
     </section>
   </Teleport>

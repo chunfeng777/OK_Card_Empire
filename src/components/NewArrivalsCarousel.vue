@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { BlindBox } from '../data'
 
 defineProps<{ boxes: BlindBox[] }>()
+const { t, tm } = useI18n()
+const boxName = (id: string) => t(`boxes.${id}.name`)
+const boxTags = (id: string) => tm(`boxes.${id}.tags`) as string[]
 
 const track = ref<HTMLElement | null>(null)
 const atStart = ref(true)
@@ -43,17 +47,17 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateEdges))
   <section id="new-arrivals" class="new-arrivals" aria-labelledby="new-arrivals-title">
     <div class="container arrivals-inner">
       <header class="arrivals-heading">
-        <span class="arrivals-eyebrow">NEW ARRIVALS</span>
-        <h2 id="new-arrivals-title">新品上线</h2>
-        <RouterLink to="/blind-boxes">查看全部新品</RouterLink>
+        <span class="arrivals-eyebrow">{{ t('eyebrow.arrivals') }}</span>
+        <h2 id="new-arrivals-title">{{t('arrivals.title')}}</h2>
+        <RouterLink to="/blind-boxes">{{t('arrivals.all')}}</RouterLink>
       </header>
 
       <div class="arrivals-toolbar">
-        <strong>本周上新</strong>
+        <strong>{{t('arrivals.weekly')}}</strong>
         <span aria-hidden="true"></span>
         <div class="arrivals-controls">
-          <button type="button" aria-label="查看上一组新品" :disabled="atStart" @click="scroll(-1)">‹</button>
-          <button type="button" aria-label="查看下一组新品" :disabled="atEnd" @click="scroll(1)">›</button>
+          <button type="button" :aria-label="t('arrivals.previous')" :disabled="atStart" @click="scroll(-1)">‹</button>
+          <button type="button" :aria-label="t('arrivals.next')" :disabled="atEnd" @click="scroll(1)">›</button>
         </div>
       </div>
 
@@ -61,7 +65,7 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateEdges))
         ref="track"
         class="arrivals-track"
         role="region"
-        aria-label="新品盲盒横向列表"
+        :aria-label="t('arrivals.list')"
         tabindex="0"
         @scroll.passive="updateEdges"
       >
@@ -72,11 +76,11 @@ onBeforeUnmount(() => window.removeEventListener('resize', updateEdges))
           :to="`/blind-boxes/${box.id}`"
         >
           <div class="arrival-image">
-            <img :src="box.image" :alt="box.name" loading="lazy">
+            <img :src="box.image" :alt="boxName(box.id)" loading="lazy">
           </div>
-          <h3>{{ box.name }}</h3>
-          <div class="arrival-tags" aria-label="商品标签">
-            <span v-for="(tag, index) in box.tags" :key="tag" :class="{ gold: index === 0 }">{{ tag }}</span>
+          <h3>{{ boxName(box.id) }}</h3>
+          <div class="arrival-tags" :aria-label="t('arrivals.tags')">
+            <span v-for="(tag, index) in boxTags(box.id)" :key="tag" :class="{ gold: index === 0 }">{{ tag }}</span>
           </div>
           <div class="arrival-price">
             <strong>{{ box.price }} <small>OK Coin</small></strong>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import * as THREE from 'three'
 import type { OpeningStage, SealBounds } from './types'
 
@@ -7,6 +8,7 @@ const props = defineProps<{ stage: OpeningStage; cover: string; selected: number
 const emit = defineEmits<{
   ready: []; error: []; choose: [id: number]; shuffled: []; focused: []; opened: []; active: [id: number]; seal: [bounds: SealBounds]
 }>()
+const { t } = useI18n()
 const host = ref<HTMLDivElement>()
 const count = 10, packWidth = 1.46, packHeight = 2.616, seam = packHeight / 4
 let renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.PerspectiveCamera
@@ -221,7 +223,7 @@ onMounted(() => {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     renderer.outputColorSpace = THREE.SRGBColorSpace
     host.value!.appendChild(renderer.domElement)
-    renderer.domElement.setAttribute('aria-label', '可左右拖动的立体卡包轮盘')
+    renderer.domElement.setAttribute('aria-label', t('opening.wheel'))
     scene.add(new THREE.AmbientLight(0xffefd3, 2))
     const light = new THREE.DirectionalLight(0xffe0a0, 4); light.position.set(-3, 5, 7); scene.add(light)
     const rim = new THREE.DirectionalLight(0xffffff, 3); rim.position.set(4, 2, -3); scene.add(rim)

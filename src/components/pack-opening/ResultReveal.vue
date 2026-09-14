@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { OpeningResult } from './types'
 const props = defineProps<{ results: OpeningResult[]; preview: boolean }>()
 const emit = defineEmits<{ again: []; close: [] }>()
+const { t, locale } = useI18n()
 const active = ref(0)
 const result = computed(() => props.results[active.value] || props.results[0])
 function move(delta: number) { active.value = (active.value + delta + props.results.length) % props.results.length }
@@ -11,21 +13,21 @@ function move(delta: number) { active.value = (active.value + delta + props.resu
   <section class="result-reveal" aria-labelledby="result-title">
     <div class="result-aura"/>
     <div class="result-content">
-      <span class="result-mark"/><small>抽取结果</small>
+      <span class="result-mark"/><small>{{ t('opening.resultTitle') }}</small>
       <div class="result-card-shell">
         <span class="corner top-left"/><span class="corner top-right"/><span class="corner bottom-left"/><span class="corner bottom-right"/>
         <img :src="result.image" :alt="result.name">
         <i class="edge-orbit"/>
       </div>
       <div class="result-title-row">
-        <button v-if="results.length>1" aria-label="上一张卡牌" @click="move(-1)">‹</button>
+        <button v-if="results.length>1" :aria-label="t('opening.prevCard')" @click="move(-1)">‹</button>
         <h1 id="result-title">{{ result.name }}</h1>
-        <button v-if="results.length>1" aria-label="下一张卡牌" @click="move(1)">›</button>
+        <button v-if="results.length>1" :aria-label="t('opening.nextCard')" @click="move(1)">›</button>
       </div>
-      <div class="result-meta"><b>{{ result.rarity }}</b><span>回收价值 <strong>{{ result.coin.toLocaleString() }}</strong> OK Coin</span></div>
-      <div v-if="results.length>1" class="result-pages"><button v-for="(_,i) in results" :key="i" :class="{active:i===active}" :aria-label="`查看第 ${i+1} 张卡牌`" @click="active=i"/></div>
-      <p class="result-count">{{ preview ? '演示结果 · 不代表实际奖品' : results.length>1 ? `本次共获得 ${results.length} 张收藏卡牌` : '卡牌已收入你的收藏仓库' }}</p>
-      <div class="result-actions"><button class="result-again" @click="emit('again')">{{ preview ? '再体验一次' : '继续抽取' }}</button><button class="result-finish" @click="emit('close')">完成</button></div>
+      <div class="result-meta"><b>{{ result.rarity }}</b><span>{{ t('opening.recycle') }} <strong>{{ result.coin.toLocaleString(locale) }}</strong> OK Coin</span></div>
+      <div v-if="results.length>1" class="result-pages"><button v-for="(_,i) in results" :key="i" :class="{active:i===active}" :aria-label="t('opening.viewCard',{number:i+1})" @click="active=i"/></div>
+      <p class="result-count">{{ preview ? t('opening.demo') : results.length>1 ? t('opening.wonCards',{count:results.length}) : t('opening.stored') }}</p>
+      <div class="result-actions"><button class="result-again" @click="emit('again')">{{ preview ? t('opening.againDemo') : t('opening.again') }}</button><button class="result-finish" @click="emit('close')">{{ t('opening.finish') }}</button></div>
     </div>
   </section>
 </template>
